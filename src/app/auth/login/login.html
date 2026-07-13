@@ -1,0 +1,39 @@
+<app-auth-wrapper>
+  <div class="w-full space-y-8">
+    <p-card header="Welcome Back!" subheader="Sign in with your email to continue.">
+      <form class="space-y-4 mt-3" [formGroup]="form">
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <svg data-p-icon="user"></svg>
+          </p-inputgroup-addon>
+          <input pInputText placeholder="Email" type="email" [formControl]="form.controls.email" />
+        </p-inputgroup>
+
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <svg data-p-icon="lock"></svg>
+          </p-inputgroup-addon>
+          <input
+            pInputText
+            placeholder="Password"
+            type="password"
+            [formControl]="form.controls.password"
+          />
+        </p-inputgroup>
+
+        <button pButton class="w-full" type="submit" (click)="login()">Login</button>
+      </form>
+
+      <div class="flex justify-center my-3">
+        <button type="button" pButton variant="link" (click)="forgotPassword()">
+          Forgot Password?
+        </button>
+      </div>
+
+      <div class="text-center text-sm">
+        Do not have an account?
+        <button type="button" pButton variant="link" routerLink="/register">Register</button>
+      </div>
+    </p-card>
+  </div>
+</app-auth-wrapper>

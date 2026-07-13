@@ -1,0 +1,59 @@
+<app-auth-wrapper>
+  <div class="w-full space-y-8">
+    <p-card header="Register Yourself!" subheader="Please enter your credentials to register!">
+      <form class="space-y-4 mt-3" [formGroup]="form">
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <svg data-p-icon="user"></svg>
+          </p-inputgroup-addon>
+          <input
+            pInputText
+            placeholder="Full Name"
+            type="text"
+            [formControl]="form.controls.fullName"
+          />
+        </p-inputgroup>
+  
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <svg data-p-icon="envelope"></svg>
+          </p-inputgroup-addon>
+          <input pInputText placeholder="Email" type="email" [formControl]="form.controls.email" />
+        </p-inputgroup>
+  
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <svg data-p-icon="lock"></svg>
+          </p-inputgroup-addon>
+          <input
+            pInputText
+            placeholder="Password"
+            type="password"
+            [formControl]="form.controls.password"
+          />
+        </p-inputgroup>
+  
+        <p-inputgroup>
+          <p-inputgroup-addon>
+            <svg data-p-icon="lock"></svg>
+          </p-inputgroup-addon>
+          <input
+            pInputText
+            placeholder="Confirm Password"
+            type="password"
+            [formControl]="form.controls.confirmPassword"
+          />
+        </p-inputgroup>
+  
+        <button pButton class="w-full mt-1" type="submit" (click)="register()">Register</button>
+      </form>
+  
+      <div class="text-center text-sm mt-3">
+        Already have an account?
+        <button type="button" pButton variant="link" routerLink="/login">
+          Login
+        </button>
+      </div>
+    </p-card>
+  </div>
+</app-auth-wrapper>
