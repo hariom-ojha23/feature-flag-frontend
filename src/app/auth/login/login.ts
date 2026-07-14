@@ -12,7 +12,7 @@ import {
   Validators
 } from '@angular/forms'
 import { ButtonModule } from 'primeng/button'
-import { User } from '@primeicons/angular/user'
+import { Envelope } from '@primeicons/angular/envelope'
 import { Lock } from '@primeicons/angular/lock'
 import { RouterModule } from '@angular/router'
 
@@ -28,7 +28,7 @@ import { RouterModule } from '@angular/router'
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    User,
+    Envelope,
     Lock
   ],
   templateUrl: './login.html',
