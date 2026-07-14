@@ -17,6 +17,7 @@ import { ButtonModule } from 'primeng/button'
 import { User } from '@primeicons/angular/user'
 import { Lock } from '@primeicons/angular/lock'
 import { Envelope } from '@primeicons/angular/envelope'
+import { BuildingColumns } from '@primeicons/angular/building-columns'
 import { CardModule } from 'primeng/card'
 
 @Component({
@@ -33,13 +34,15 @@ import { CardModule } from 'primeng/card'
     RouterModule,
     User,
     Lock,
-    Envelope
+    Envelope,
+    BuildingColumns
   ],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
 export class Register {
   form = new FormGroup({
+    tenantName: new FormControl('', [Validators.required]),
     fullName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),

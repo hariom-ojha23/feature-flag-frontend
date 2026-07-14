@@ -4,6 +4,18 @@
       <form class="space-y-4 mt-3" [formGroup]="form">
         <p-inputgroup>
           <p-inputgroup-addon>
+            <svg data-p-icon="building-columns"></svg>
+          </p-inputgroup-addon>
+          <input
+            pInputText
+            placeholder="Organization Name"
+            type="text"
+            [formControl]="form.controls.tenantName"
+          />
+        </p-inputgroup>
+
+        <p-inputgroup>
+          <p-inputgroup-addon>
             <svg data-p-icon="user"></svg>
           </p-inputgroup-addon>
           <input
