@@ -3,6 +3,7 @@ import { Login } from './auth/login/login'
 import { Register } from './auth/register/register'
 import { AuthLayout } from './layout/auth-layout/auth-layout'
 import { MainLayout } from './layout/main-layout/main-layout'
+import { Onboarding } from './auth/onboarding/onboarding'
 
 export const routes: Routes = [
   {
@@ -10,7 +11,8 @@ export const routes: Routes = [
     component: AuthLayout,
     children: [
       { path: 'login', component: Login },
-      { path: 'register', component: Register }
+      { path: 'register', component: Register },
+      { path: 'onboarding', component: Onboarding },
     ]
   },
   {

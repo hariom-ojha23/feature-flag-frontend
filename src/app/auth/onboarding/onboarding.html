@@ -1,0 +1,46 @@
+<p-stepper [(value)]="activeStep" class="basis-160 min-w-0">
+  <p-step-panels>
+    @for (step of steps; track step.value) {
+      <p-step-panel [value]="step.value">
+        <ng-template #content>
+          <div class="min-h-72">
+            @switch (step.component) {
+              @case ('verify-email') {
+                <app-verify-email></app-verify-email>
+              }
+              @case ('first-project') {
+                <app-first-project></app-first-project>
+              }
+              @case ('complete') {
+                <app-verify-email></app-verify-email>
+              }
+            }
+          </div>
+        </ng-template>
+      </p-step-panel>
+    }
+  </p-step-panels>
+
+  <p-step-list>
+    @for (step of steps; track step.value) {
+      <p-step [value]="step.value" class="flex flex-row flex-auto gap-2">
+        <ng-template #content let-activateCallback="activateCallback" let-value="value">
+          <button
+            class="bg-transparent border-0 inline-flex flex-col gap-2"
+            (click)="activateCallback()"
+          >
+            <span
+              class="rounded-full border-2 w-12 h-12 inline-flex items-center justify-center"
+              [ngClass]="{
+                'bg-primary text-primary-contrast border-primary': value <= activeStep,
+                'border-surface': value > activeStep
+              }"
+            >
+              <svg [pIcon]="step.icon"></svg>
+            </span>
+          </button>
+        </ng-template>
+      </p-step>
+    }
+  </p-step-list>
+</p-stepper>

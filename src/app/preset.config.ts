@@ -5,7 +5,7 @@ import { environment } from '../environments/environment'
 
 const ThemePreset = definePreset(Aura, {
   semantic: {
-    primary: palette('{emerald}'),
+    primary: palette('{emerald}')
   }
 })
 

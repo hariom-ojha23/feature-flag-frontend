@@ -1,0 +1,22 @@
+<p-card>
+  <div class="flex flex-col items-center gap-3 p-3">
+    <div class="bg-purple-400 rounded-full p-3">
+      <svg pIcon="envelope" size="24"></svg>
+    </div>
+
+    <h1 class="text-lg font-medium">Check your inbox</h1>
+    <h3 class="text-center">
+      We have sent a verification code to <br />
+      <button type="button" pButton variant="link">hariomojha2301@gmail.com</button>
+    </h3>
+
+    <p-inputotp />
+
+    <button pButton class="w-full mt-1" type="submit" disabled>Verify</button>
+
+    <h3 class="text-center mt-2">
+      Didn't get the code?
+      <button type="button" pButton variant="link">Resend in 24s</button>
+    </h3>
+  </div>
+</p-card>

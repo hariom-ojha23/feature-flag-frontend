@@ -1,0 +1,22 @@
+<p-card header="Create your first project" subheader="You can always add more projects later.">
+  <form class="space-y-4 mt-3">
+    <p-inputgroup>
+      <p-inputgroup-addon>
+        <svg pIcon="objects-column"></svg>
+      </p-inputgroup-addon>
+      <input pInputText placeholder="Project Name" type="text" />
+    </p-inputgroup>
+
+    <textarea class="w-full" rows="4" pTextarea placeholder="Write a description..."></textarea>
+
+    <button pButton class="w-full" type="submit">Create Project</button>
+
+    <div class="w-full rounded-md bg-neutral-700 p-2 space-x-2">
+      <p class="text-xs font-medium mb-1 text-neutral-200">Default environments will be created</p>
+
+      <p-badge value="Development" severity="success" />
+      <p-badge value="Staging" severity="warn" />
+      <p-badge value="Production" severity="danger" />
+    </div>
+  </form>
+</p-card>
