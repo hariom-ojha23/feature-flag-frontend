@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { AuthWrapper } from './auth-wrapper'
+import { Onboarding } from './onboarding'
 
-describe('AuthWrapper', () => {
-  let component: AuthWrapper
-  let fixture: ComponentFixture<AuthWrapper>
+describe('Onboarding', () => {
+  let component: Onboarding
+  let fixture: ComponentFixture<Onboarding>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AuthWrapper]
+      imports: [Onboarding]
     }).compileComponents()
 
-    fixture = TestBed.createComponent(AuthWrapper)
+    fixture = TestBed.createComponent(Onboarding)
     component = fixture.componentInstance
     await fixture.whenStable()
   })

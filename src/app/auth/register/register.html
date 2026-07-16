@@ -1,79 +1,77 @@
-<app-auth-wrapper>
-  <div class="w-full space-y-8">
-    <p-card header="Register Yourself!" subheader="Please enter your credentials to register!">
-      <form class="space-y-4 mt-3" [formGroup]="form">
-        <p-inputgroup>
-          <p-inputgroup-addon>
-            <svg data-p-icon="building-columns"></svg>
-          </p-inputgroup-addon>
-          <input
-            pInputText
-            placeholder="Organization Name"
-            type="text"
-            [invalid]="invalidFields().tenantName"
-            [formControl]="form.controls.tenantName"
-          />
-        </p-inputgroup>
+<div class="w-full space-y-8">
+  <p-card header="Register Yourself!" subheader="Please enter your credentials to register!">
+    <form class="space-y-4 mt-3" [formGroup]="form">
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <svg data-p-icon="building-columns"></svg>
+        </p-inputgroup-addon>
+        <input
+          pInputText
+          placeholder="Organization Name"
+          type="text"
+          [invalid]="invalidFields().tenantName"
+          [formControl]="form.controls.tenantName"
+        />
+      </p-inputgroup>
 
-        <p-inputgroup>
-          <p-inputgroup-addon>
-            <svg data-p-icon="user"></svg>
-          </p-inputgroup-addon>
-          <input
-            pInputText
-            placeholder="Full Name"
-            type="text"
-            [invalid]="invalidFields().fullName"
-            [formControl]="form.controls.fullName"
-          />
-        </p-inputgroup>
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <svg data-p-icon="user"></svg>
+        </p-inputgroup-addon>
+        <input
+          pInputText
+          placeholder="Full Name"
+          type="text"
+          [invalid]="invalidFields().fullName"
+          [formControl]="form.controls.fullName"
+        />
+      </p-inputgroup>
 
-        <p-inputgroup>
-          <p-inputgroup-addon>
-            <svg data-p-icon="envelope"></svg>
-          </p-inputgroup-addon>
-          <input
-            pInputText
-            placeholder="Email"
-            type="email"
-            [invalid]="invalidFields().email"
-            [formControl]="form.controls.email"
-          />
-        </p-inputgroup>
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <svg data-p-icon="envelope"></svg>
+        </p-inputgroup-addon>
+        <input
+          pInputText
+          placeholder="Email"
+          type="email"
+          [invalid]="invalidFields().email"
+          [formControl]="form.controls.email"
+        />
+      </p-inputgroup>
 
-        <p-inputgroup>
-          <p-inputgroup-addon>
-            <svg data-p-icon="lock"></svg>
-          </p-inputgroup-addon>
-          <input
-            pInputText
-            placeholder="Password"
-            type="password"
-            [invalid]="invalidFields().password"
-            [formControl]="form.controls.password"
-          />
-        </p-inputgroup>
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <svg data-p-icon="lock"></svg>
+        </p-inputgroup-addon>
+        <input
+          pInputText
+          placeholder="Password"
+          type="password"
+          [invalid]="invalidFields().password"
+          [formControl]="form.controls.password"
+        />
+      </p-inputgroup>
 
-        <p-inputgroup>
-          <p-inputgroup-addon>
-            <svg data-p-icon="lock"></svg>
-          </p-inputgroup-addon>
-          <input
-            pInputText
-            placeholder="Confirm Password"
-            type="password"
-            [invalid]="invalidFields().confirmPassword"
-            [formControl]="form.controls.confirmPassword"
-          />
-        </p-inputgroup>
+      <p-inputgroup>
+        <p-inputgroup-addon>
+          <svg data-p-icon="lock"></svg>
+        </p-inputgroup-addon>
+        <input
+          pInputText
+          placeholder="Confirm Password"
+          type="password"
+          [invalid]="invalidFields().confirmPassword"
+          [formControl]="form.controls.confirmPassword"
+        />
+      </p-inputgroup>
 
-        <button pButton class="w-full mt-1" type="submit" (click)="register()">Register</button>
-      </form>
+      <button pButton class="w-full mt-1" type="submit" (click)="register()">Register</button>
+    </form>
 
-      <div class="text-center text-sm mt-3">
-        Already have an account?
-        <button type="button" pButton variant="link" routerLink="/login">Login</button>
-      </div>
-    </p-card>
-  </div>
-</app-auth-wrapper>
+    <div class="text-center text-sm mt-3">
+      Already have an account?
+      <button type="button" pButton variant="link" routerLink="/login">Login</button>
+    </div>
+  </p-card>
+</div>

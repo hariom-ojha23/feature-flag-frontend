@@ -1,5 +1,4 @@
 import { Component, inject, signal } from '@angular/core'
-import { AuthWrapper } from '../../shared/components/auth-wrapper/auth-wrapper'
 import { InputGroupModule } from 'primeng/inputgroup'
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon'
 import { InputTextModule } from 'primeng/inputtext'
@@ -24,7 +23,6 @@ import { Error } from '../../shared/interfaces/error.interface'
 @Component({
   selector: 'app-login',
   imports: [
-    AuthWrapper,
     InputGroupModule,
     InputGroupAddonModule,
     InputTextModule,

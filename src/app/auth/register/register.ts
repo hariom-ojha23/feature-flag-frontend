@@ -8,7 +8,6 @@ import {
 } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 
-import { AuthWrapper } from '../../shared/components/auth-wrapper/auth-wrapper'
 import { InputGroupModule } from 'primeng/inputgroup'
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon'
 import { InputTextModule } from 'primeng/inputtext'
@@ -28,7 +27,6 @@ import { Error } from '../../shared/interfaces/error.interface'
 @Component({
   selector: 'app-register',
   imports: [
-    AuthWrapper,
     InputGroupModule,
     InputGroupAddonModule,
     InputTextModule,
