@@ -7,3 +7,7 @@ export interface RegisterPayload extends LoginPayload {
   tenantName: string
   fullName: string
 }
+
+export interface LoginResponse {
+  token: string
+}

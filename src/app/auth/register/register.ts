@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, inject, signal } from '@angular/core'
 import {
   FormControl,
   FormGroup,
@@ -19,6 +19,11 @@ import { Lock } from '@primeicons/angular/lock'
 import { Envelope } from '@primeicons/angular/envelope'
 import { BuildingColumns } from '@primeicons/angular/building-columns'
 import { CardModule } from 'primeng/card'
+import { ToastMessageService } from '../../shared/services/toast.service'
+import { registerValidationRules } from '../../shared/constants/validation-rules/auth'
+import { AuthService } from '../services/auth.service'
+import { RegisterPayload } from '../../shared/interfaces/auth.interface'
+import { Error } from '../../shared/interfaces/error.interface'
 
 @Component({
   selector: 'app-register',
@@ -41,6 +46,17 @@ import { CardModule } from 'primeng/card'
   styleUrl: './register.css'
 })
 export class Register {
+  private readonly authService = inject(AuthService)
+  private readonly toast = inject(ToastMessageService)
+
+  invalidFields = signal({
+    tenantName: false,
+    fullName: false,
+    email: false,
+    password: false,
+    confirmPassword: false
+  })
+
   form = new FormGroup({
     tenantName: new FormControl('', [Validators.required]),
     fullName: new FormControl('', [Validators.required]),
@@ -49,24 +65,54 @@ export class Register {
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
-  checkFormValidity() {
-    const formValue = this.form.value
+  control(controlName: string) {
+    return this.form.get(controlName) as FormControl
+  }
 
-    if (formValue.password !== formValue.confirmPassword) {
-      this.form.get('confirmPassword')?.setErrors({ mismatch: true })
-    } else {
-      this.form.get('confirmPassword')?.setErrors(null)
+  private updateInvalidFields() {
+    this.invalidFields.set({
+      tenantName: this.control('tenantName').invalid,
+      fullName: this.control('fullName').invalid,
+      email: this.control('email').invalid,
+      password: this.control('password').invalid,
+      confirmPassword: this.control('confirmPassword').invalid
+    })
+  }
+
+  private validateForm(): boolean {
+    this.form.markAllAsTouched()
+    this.updateInvalidFields()
+
+    const title = 'Validation Error'
+
+    for (const rule of registerValidationRules) {
+      if (this.control(rule.control).hasError(rule.error)) {
+        this.toast.showWarn(title, rule.message)
+        return false
+      }
     }
 
-    return this.form.valid
+    if (this.form.hasError('passwordMismatch')) {
+      this.toast.showWarn(title, 'Password and confirm password do not match.')
+      return false
+    }
+
+    return true
   }
 
   register() {
-    const isValid = this.checkFormValidity()
-
-    if (isValid) {
-      const { fullName, email, password } = this.form.value
-      console.log('Registering with:', fullName, email, password)
+    if (!this.validateForm()) {
+      return
     }
+
+    const { confirmPassword, ...payload } = this.form.value
+    this.authService.register(payload as RegisterPayload).subscribe({
+      next: () => {
+        this.toast.showSuccess('Success', 'User registered successfully')
+      },
+      error: ({ error }: Error) => {
+        this.toast.showError(error.error, error.message)
+      }
+    })
   }
 }

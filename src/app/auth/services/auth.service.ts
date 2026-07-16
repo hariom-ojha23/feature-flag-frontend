@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core'
-import { LoginPayload, RegisterPayload } from '../../shared/interfaces/auth.interface'
+import {
+  LoginPayload,
+  LoginResponse,
+  RegisterPayload
+} from '../../shared/interfaces/auth.interface'
 import { ApiService } from '../../shared/services/api.service'
 import { tap } from 'rxjs'
 import { TokenService } from './token.service'
@@ -12,15 +16,19 @@ export class AuthService {
   ) {}
 
   login(payload: LoginPayload) {
-    return this.apiService.post<string>('auth/login', payload).pipe(
-      tap((token: string) => {
+    return this.apiService.post<LoginResponse>('auth/login', payload).pipe(
+      tap(({ token }) => {
         return this.tokenService.addToken(token)
       })
     )
   }
 
   register(payload: RegisterPayload) {
-    return this.apiService.post('auth/register', payload)
+    return this.apiService.post<LoginResponse>('auth/register', payload).pipe(
+      tap(({ token }) => {
+        return this.tokenService.addToken(token)
+      })
+    )
   }
 
   logout() {

@@ -10,6 +10,7 @@
             pInputText
             placeholder="Organization Name"
             type="text"
+            [invalid]="invalidFields().tenantName"
             [formControl]="form.controls.tenantName"
           />
         </p-inputgroup>
@@ -22,17 +23,24 @@
             pInputText
             placeholder="Full Name"
             type="text"
+            [invalid]="invalidFields().fullName"
             [formControl]="form.controls.fullName"
           />
         </p-inputgroup>
-  
+
         <p-inputgroup>
           <p-inputgroup-addon>
             <svg data-p-icon="envelope"></svg>
           </p-inputgroup-addon>
-          <input pInputText placeholder="Email" type="email" [formControl]="form.controls.email" />
+          <input
+            pInputText
+            placeholder="Email"
+            type="email"
+            [invalid]="invalidFields().email"
+            [formControl]="form.controls.email"
+          />
         </p-inputgroup>
-  
+
         <p-inputgroup>
           <p-inputgroup-addon>
             <svg data-p-icon="lock"></svg>
@@ -41,10 +49,11 @@
             pInputText
             placeholder="Password"
             type="password"
+            [invalid]="invalidFields().password"
             [formControl]="form.controls.password"
           />
         </p-inputgroup>
-  
+
         <p-inputgroup>
           <p-inputgroup-addon>
             <svg data-p-icon="lock"></svg>
@@ -53,18 +62,17 @@
             pInputText
             placeholder="Confirm Password"
             type="password"
+            [invalid]="invalidFields().confirmPassword"
             [formControl]="form.controls.confirmPassword"
           />
         </p-inputgroup>
-  
+
         <button pButton class="w-full mt-1" type="submit" (click)="register()">Register</button>
       </form>
-  
+
       <div class="text-center text-sm mt-3">
         Already have an account?
-        <button type="button" pButton variant="link" routerLink="/login">
-          Login
-        </button>
+        <button type="button" pButton variant="link" routerLink="/login">Login</button>
       </div>
     </p-card>
   </div>

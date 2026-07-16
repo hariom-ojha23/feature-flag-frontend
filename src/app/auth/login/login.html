@@ -6,7 +6,13 @@
           <p-inputgroup-addon>
             <svg data-p-icon="envelope"></svg>
           </p-inputgroup-addon>
-          <input pInputText placeholder="Email" type="email" [formControl]="form.controls.email" />
+          <input
+            pInputText
+            placeholder="Email"
+            type="email"
+            [invalid]="invalidFields().email"
+            [formControl]="form.controls.email"
+          />
         </p-inputgroup>
 
         <p-inputgroup>
@@ -17,6 +23,7 @@
             pInputText
             placeholder="Password"
             type="password"
+            [invalid]="invalidFields().password"
             [formControl]="form.controls.password"
           />
         </p-inputgroup>

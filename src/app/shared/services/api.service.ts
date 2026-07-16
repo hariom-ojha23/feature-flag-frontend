@@ -11,7 +11,7 @@ type BlobOptions = { observe?: 'body'; responseType: 'blob' } & HttpClientCommon
 type TextOptions = { observe?: 'body'; responseType: 'text' } & HttpClientCommonOptions
 type JsonOptions = { observe?: 'body'; responseType?: 'json' } & HttpClientCommonOptions
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ApiService {
   constructor(private http: HttpClient) {}
 
