@@ -8,6 +8,7 @@ import { catchError, EMPTY, pipe, switchMap, tap } from 'rxjs'
 import { LoginPayload, RegisterPayload } from '../../shared/interfaces/auth.interface'
 import { Router } from '@angular/router'
 import { ToastMessageService } from '../../shared/services/toast.service'
+import { Error } from '../../shared/interfaces/error.interface'
 
 const initialState: SessionState = {
   user: null,
@@ -50,8 +51,8 @@ export const SessionStore = signalStore(
                  * else redirect to dashboard
                  */
                 let query = ''
-                if (!user.isEmailVerified) query = 'active=email-verification'
-                else if (!project) query = 'active=create-project'
+                if (!user.isEmailVerified) query = 'active=verify-email'
+                else if (!project) query = 'active=first-project'
 
                 if (query) {
                   router.navigateByUrl(`/onboarding?${query}`)
@@ -59,8 +60,12 @@ export const SessionStore = signalStore(
                   router.navigateByUrl('/dashboard')
                 }
               }),
-              catchError((error) => {
-                patchState(store, { loading: false, authError: error?.message ?? 'Login Failed' })
+              catchError((error: Error) => {
+                toast.showError(error.error?.error, error.error?.message)
+                patchState(store, {
+                  loading: false,
+                  authError: error?.error?.message ?? 'Login Failed'
+                })
                 return EMPTY
               })
             )
@@ -80,13 +85,14 @@ export const SessionStore = signalStore(
                 toast.showSuccess('Success', 'Registered sucessfully')
 
                 // send user for email verification
-                const query = 'active=email-verification'
+                const query = 'active=verify-email'
                 router.navigateByUrl(`/onboarding?${query}`)
               }),
               catchError((error) => {
+                toast.showError(error.error?.error, error.error?.message)
                 patchState(store, {
                   loading: false,
-                  authError: error?.message ?? 'Registration Failed'
+                  authError: error?.error?.message ?? 'Registration Failed'
                 })
                 return EMPTY
               })
