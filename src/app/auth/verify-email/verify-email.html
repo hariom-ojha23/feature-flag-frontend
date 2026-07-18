@@ -10,13 +10,20 @@
       <button type="button" pButton variant="link">hariomojha2301@gmail.com</button>
     </h3>
 
-    <p-inputotp [length]="6" />
+    <p-inputotp [length]="6" [(ngModel)]="otp" />
 
-    <button pButton class="w-full mt-1" type="submit" disabled>Verify OTP</button>
+    <button pButton class="w-full mt-1" [disabled]="otp.length !== 6" (click)="verifyEmail()">
+      Verify OTP
+    </button>
 
     <h3 class="text-center mt-2">
       Didn't get the code?
-      <button type="button" pButton variant="link">Resend in 24s</button>
+      <button type="button" pButton variant="link" [disabled]="timer()" (click)="resendCode()">
+        Resend
+        @if (timer() > 0) {
+          <span>in {{ timer() }}s</span>
+        }
+      </button>
     </h3>
   </div>
 </p-card>

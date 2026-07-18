@@ -17,4 +17,8 @@ export class TokenService {
   getToken() {
     return localStorage.getItem(this.TOKEN_KEY)
   }
+
+  hasToken() {
+    return this.getToken() ? true : false
+  }
 }

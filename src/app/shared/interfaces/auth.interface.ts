@@ -11,3 +11,13 @@ export interface RegisterPayload extends LoginPayload {
 export interface LoginResponse {
   token: string
 }
+
+export interface ResendEmailResponse {
+  success: boolean
+  message: string
+}
+
+export interface VerifyEmailResponse {
+  success: boolean
+  message: string
+}

@@ -9,6 +9,7 @@ import { LoginPayload, RegisterPayload } from '../../shared/interfaces/auth.inte
 import { Router } from '@angular/router'
 import { ToastMessageService } from '../../shared/services/toast.service'
 import { Error } from '../../shared/interfaces/error.interface'
+import { TokenService } from '../../auth/services/token.service'
 
 const initialState: SessionState = {
   user: null,
@@ -30,6 +31,7 @@ export const SessionStore = signalStore(
       store,
       authService = inject(AuthService),
       sessionService = inject(SessionService),
+      tokenService = inject(TokenService),
       router = inject(Router),
       toast = inject(ToastMessageService)
     ) => ({
@@ -46,16 +48,13 @@ export const SessionStore = signalStore(
                 toast.showSuccess('Success', 'Login sucessfully')
 
                 /**
-                 * if email not verified, redirect to email verification
-                 * if project not created, redirect to create project
+                 * if email not verified or project not created,
+                 * redirect to onboard page
                  * else redirect to dashboard
                  */
-                let query = ''
-                if (!user.isEmailVerified) query = 'active=verify-email'
-                else if (!project) query = 'active=first-project'
 
-                if (query) {
-                  router.navigateByUrl(`/onboarding?${query}`)
+                if (!user.isEmailVerified || !project) {
+                  router.navigateByUrl('/onboarding')
                 } else {
                   router.navigateByUrl('/dashboard')
                 }
@@ -84,11 +83,10 @@ export const SessionStore = signalStore(
 
                 toast.showSuccess('Success', 'Registered sucessfully')
 
-                // send user for email verification
-                const query = 'active=verify-email'
-                router.navigateByUrl(`/onboarding?${query}`)
+                // send user for email verification and project creation
+                router.navigateByUrl('/onboarding')
               }),
-              catchError((error) => {
+              catchError((error: Error) => {
                 toast.showError(error.error?.error, error.error?.message)
                 patchState(store, {
                   loading: false,
@@ -98,6 +96,94 @@ export const SessionStore = signalStore(
               })
             )
           )
+        )
+      ),
+      logout: rxMethod<void>(
+        pipe(
+          switchMap(() =>
+            authService.logout().pipe(
+              tap(() => {
+                patchState(store, initialState)
+                toast.showSuccess('Success', 'Logout sucessfully')
+                router.navigateByUrl('/login')
+              }),
+              catchError((error) => {
+                toast.showError(error.error?.error, error.error?.message)
+                patchState(store, initialState)
+                return EMPTY
+              })
+            )
+          )
+        )
+      ),
+      resendEmailVerifyCode: rxMethod<void>(
+        pipe(
+          tap(() => patchState(store, { loading: true, authError: null })),
+          switchMap(() => authService.resendEmailVerifyCode()),
+          tap(({ success, message }) => {
+            patchState(store, { loading: false })
+            if (success) {
+              toast.showSuccess('Success', message)
+            }
+          }),
+          catchError((error: Error) => {
+            toast.showError(error.error?.error, error.error?.message)
+            patchState(store, { loading: false, authError: error.error?.message })
+            return EMPTY
+          })
+        )
+      ),
+      verifyEmail: rxMethod<string>(
+        pipe(
+          tap(() => patchState(store, { loading: true, authError: null })),
+          switchMap((payload) => authService.verifyEmail(payload)),
+          tap(({ success, message }) => {
+            if (success) {
+              toast.showSuccess('Success', message)
+              const user = store.user()
+              patchState(store, {
+                loading: false,
+                user: user ? { ...user, isEmailVerified: true } : user
+              })
+            } else {
+              patchState(store, { loading: false })
+            }
+          }),
+          catchError((error: Error) => {
+            toast.showError(error.error?.error, error.error?.message)
+            patchState(store, { loading: false, authError: error.error?.message })
+            return EMPTY
+          })
+        )
+      ),
+      rehydrate: rxMethod<void>(
+        pipe(
+          switchMap(() => {
+            if (!tokenService.hasToken()) {
+              patchState(store, { initialized: true })
+              return EMPTY
+            }
+
+            patchState(store, { loading: true })
+            return sessionService.getSession().pipe(
+              tap(({ user, tenant, project, availableProjects }) => {
+                patchState(store, {
+                  user,
+                  tenant,
+                  project,
+                  availableProjects,
+                  loading: false,
+                  initialized: true
+                })
+              }),
+              catchError((error: Error) => {
+                // token invalid/expired — clear it and reset
+                tokenService.removeToken()
+                patchState(store, { ...initialState, initialized: true })
+                return EMPTY
+              })
+            )
+          })
         )
       )
     })

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, computed, inject, linkedSignal, signal } from '@angular/core'
+import { Component, computed, inject } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { ButtonModule } from 'primeng/button'
 import { InputGroupModule } from 'primeng/inputgroup'
@@ -10,15 +10,9 @@ import { FirstProject } from '../first-project/first-project'
 import { VerifyEmail } from '../verify-email/verify-email'
 
 import { PIcon } from '@primeicons/angular/p-icon'
-import { ActivatedRoute, Params } from '@angular/router'
-
-type OnboardingComponent = 'verify-email' | 'first-project'
-
-interface OnboardingStep {
-  value: number
-  icon: string
-  component: OnboardingComponent | 'complete'
-}
+import { SessionStore } from '../../core/stores/session.store'
+import { OnboardingStep } from '../../shared/interfaces/onboarding.interface'
+import { ONBOARDING_STEP } from '../../shared/enums/onboarding.enum'
 
 @Component({
   selector: 'app-onboarding',
@@ -38,19 +32,17 @@ interface OnboardingStep {
   styleUrl: './onboarding.css'
 })
 export class Onboarding {
-  private readonly activatedRoute = inject(ActivatedRoute)
-
-  query = signal<OnboardingComponent>(
-    this.activatedRoute.snapshot.queryParams['active'] ?? 'verify-email'
-  )
+  private readonly sessionStore = inject(SessionStore)
 
   steps: OnboardingStep[] = [
-    { value: 1, icon: 'envelope', component: 'verify-email' },
-    { value: 2, icon: 'pencil', component: 'first-project' },
-    { value: 3, icon: 'check', component: 'complete' }
+    { value: 1, icon: 'envelope', component: ONBOARDING_STEP.VERIFY_EMAIL },
+    { value: 2, icon: 'pencil', component: ONBOARDING_STEP.FIRST_PROJECT },
+    { value: 3, icon: 'check', component: ONBOARDING_STEP.COMPLETE }
   ]
 
-  activeStep = linkedSignal<number>(() => {
-    return this.steps.find((step) => step.component === this.query())?.value ?? 1
-  })
+  /**
+   * Email verified -> First Project
+   *                -> Verify Email
+   */
+  activeStep = computed<number>(() => this.sessionStore.user()?.isEmailVerified ? 2 : 1)
 }

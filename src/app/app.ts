@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ToastModule } from 'primeng/toast';
+import { Component } from '@angular/core'
+import { RouterOutlet } from '@angular/router'
+import { ToastModule } from 'primeng/toast'
 
 @Component({
   selector: 'app-root',
@@ -8,6 +8,4 @@ import { ToastModule } from 'primeng/toast';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('feature-flag-frontend');
-}
+export class App {}
