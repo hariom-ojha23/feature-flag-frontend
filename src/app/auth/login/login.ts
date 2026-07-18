@@ -19,6 +19,7 @@ import { AuthService } from '../services/auth.service'
 import { ToastMessageService } from '../../shared/services/toast.service'
 import { LoginPayload } from '../../shared/interfaces/auth.interface'
 import { Error } from '../../shared/interfaces/error.interface'
+import { SessionStore } from '../../core/stores/session.store'
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,8 @@ import { Error } from '../../shared/interfaces/error.interface'
   styleUrl: './login.css'
 })
 export class Login {
-  private readonly authService = inject(AuthService)
+  private readonly sessionStore = inject(SessionStore)
+  // private readonly authService = inject(AuthService)
   private readonly toast = inject(ToastMessageService)
 
   invalidFields = signal({ email: false, password: false })
@@ -80,15 +82,16 @@ export class Login {
       return
     }
 
-    const payload = this.form.value
-    this.authService.login(payload as LoginPayload).subscribe({
-      next: () => {
-        this.toast.showSuccess('Success', 'Login successfully')
-      },
-      error: ({ error }: Error) => {
-        this.toast.showError(error.error, error.message)
-      }
-    })
+    const payload = this.form.value as LoginPayload
+    this.sessionStore.login(payload)
+    // this.authService.login(payload as LoginPayload).subscribe({
+    //   next: () => {
+    //     this.toast.showSuccess('Success', 'Login successfully')
+    //   },
+    //   error: ({ error }: Error) => {
+    //     this.toast.showError(error.error, error.message)
+    //   }
+    // })
   }
 
   forgotPassword() {}
