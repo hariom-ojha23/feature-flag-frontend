@@ -32,7 +32,7 @@ import { ONBOARDING_STEP } from '../../shared/enums/onboarding.enum'
   styleUrl: './onboarding.css'
 })
 export class Onboarding {
-  private readonly sessionStore = inject(SessionStore)
+  private readonly session = inject(SessionStore)
 
   steps: OnboardingStep[] = [
     { value: 1, icon: 'envelope', component: ONBOARDING_STEP.VERIFY_EMAIL },
@@ -41,8 +41,11 @@ export class Onboarding {
   ]
 
   /**
-   * Email verified -> First Project
-   *                -> Verify Email
+   * Email verified   -> First Project
+   * Project Created  -> Complete
+   * Else             -> Verify Email
    */
-  activeStep = computed<number>(() => this.sessionStore.user()?.isEmailVerified ? 2 : 1)
+  activeStep = computed<number>(() => {
+    return !this.session.user()?.isEmailVerified ? 1 : !this.session.project() ? 2 : 3
+  })
 }

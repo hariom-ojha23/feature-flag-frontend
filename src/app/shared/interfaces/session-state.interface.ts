@@ -1,24 +1,25 @@
 import { TenantStatus } from '../enums/tenant.enum'
 import { UserRole, UserStatus } from '../enums/user.enum'
+import { Project } from './project.interface'
 
 export interface SessionResponse {
-  user: SessionUser
-  tenant: SessionTenant
+  user: User
+  tenant: Tenant
   project: any
   availableProjects: any[]
 }
 
 export interface SessionState {
-  user: SessionUser | null
-  tenant: SessionTenant | null
-  project: any
-  availableProjects: any[]
+  user: User | null
+  tenant: Tenant | null
+  project: Project | null
+  availableProjects: Project[]
   loading: boolean
   initialized: boolean
   authError: string | null
 }
 
-export interface SessionUser {
+export interface User {
   id: string
   email: string
   fullName: string
@@ -34,7 +35,7 @@ export interface SessionUser {
   updatedAt: Date
 }
 
-export interface SessionTenant {
+export interface Tenant {
   id: string
   logoUrl: string
   name: string

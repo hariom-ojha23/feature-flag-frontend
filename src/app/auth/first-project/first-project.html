@@ -1,13 +1,26 @@
 <p-card header="Create your first project" subheader="You can always add more projects later.">
-  <form class="space-y-4 mt-3">
+  <form class="space-y-4 mt-3" [formGroup]="form" (ngSubmit)="createProject()">
     <p-inputgroup>
       <p-inputgroup-addon>
         <svg pIcon="objects-column"></svg>
       </p-inputgroup-addon>
-      <input pInputText placeholder="Project Name" type="text" />
+      <input pInputText placeholder="Project Name" type="text" [formControl]="form.controls.name" />
     </p-inputgroup>
 
-    <textarea class="w-full" rows="4" pTextarea placeholder="Write a description..."></textarea>
+    <p-inputgroup>
+      <p-inputgroup-addon>
+        <svg pIcon="hashtag"></svg>
+      </p-inputgroup-addon>
+      <input pInputText placeholder="Project Key" type="text" [formControl]="form.controls.key" />
+    </p-inputgroup>
+
+    <textarea
+      class="w-full"
+      rows="4"
+      pTextarea
+      placeholder="Write a description..."
+      [formControl]="form.controls.description"
+    ></textarea>
 
     <button pButton class="w-full" type="submit">Create Project</button>
 

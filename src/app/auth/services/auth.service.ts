@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core'
 import {
   LoginPayload,
   LoginResponse,
-  RegisterPayload,
-  ResendEmailResponse,
-  VerifyEmailResponse
+  RegisterPayload
 } from '../../shared/interfaces/auth.interface'
 import { ApiService } from '../../shared/services/api.service'
 import { tap } from 'rxjs'
@@ -39,13 +37,5 @@ export class AuthService {
         return this.tokenService.removeToken()
       })
     )
-  }
-
-  resendEmailVerifyCode() {
-    return this.apiService.post<ResendEmailResponse>('auth/verify-email/resend', {})
-  }
-
-  verifyEmail(otp: string) {
-    return this.apiService.post<VerifyEmailResponse>('auth/verify-email', { otp })
   }
 }

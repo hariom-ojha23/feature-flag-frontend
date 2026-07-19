@@ -10,6 +10,8 @@ import { Router } from '@angular/router'
 import { ToastMessageService } from '../../shared/services/toast.service'
 import { Error } from '../../shared/interfaces/error.interface'
 import { TokenService } from '../../auth/services/token.service'
+import { OnboardingService } from '../../auth/services/onboarding.service'
+import { Project, ProjectPayload } from '../../shared/interfaces/project.interface'
 
 const initialState: SessionState = {
   user: null,
@@ -30,6 +32,7 @@ export const SessionStore = signalStore(
     (
       store,
       authService = inject(AuthService),
+      onboardingService = inject(OnboardingService),
       sessionService = inject(SessionService),
       tokenService = inject(TokenService),
       router = inject(Router),
@@ -119,7 +122,7 @@ export const SessionStore = signalStore(
       resendEmailVerifyCode: rxMethod<void>(
         pipe(
           tap(() => patchState(store, { loading: true, authError: null })),
-          switchMap(() => authService.resendEmailVerifyCode()),
+          switchMap(() => onboardingService.resendEmailVerifyCode()),
           tap(({ success, message }) => {
             patchState(store, { loading: false })
             if (success) {
@@ -136,7 +139,7 @@ export const SessionStore = signalStore(
       verifyEmail: rxMethod<string>(
         pipe(
           tap(() => patchState(store, { loading: true, authError: null })),
-          switchMap((payload) => authService.verifyEmail(payload)),
+          switchMap((payload) => onboardingService.verifyEmail(payload)),
           tap(({ success, message }) => {
             if (success) {
               toast.showSuccess('Success', message)
@@ -154,6 +157,32 @@ export const SessionStore = signalStore(
             patchState(store, { loading: false, authError: error.error?.message })
             return EMPTY
           })
+        )
+      ),
+      createFirstProject: rxMethod<ProjectPayload>(
+        pipe(
+          tap(() => patchState(store, { loading: true, authError: null })),
+          switchMap((payload) =>
+            onboardingService.addFirstProject(payload).pipe(
+              tap((project: Project) => {
+                patchState(store, {
+                  loading: false,
+                  project: project,
+                  availableProjects: [...store.availableProjects(), project]
+                })
+
+                toast.showSuccess('Success', 'Project created successfully')
+              }),
+              catchError((error: Error) => {
+                toast.showError(error.error?.error, error.error?.message)
+                patchState(store, {
+                  loading: false,
+                  authError: error.error?.message ?? 'Project creation failed'
+                })
+                return EMPTY
+              })
+            )
+          )
         )
       ),
       rehydrate: rxMethod<void>(
