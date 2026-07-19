@@ -13,6 +13,7 @@ import { PIcon } from '@primeicons/angular/p-icon'
 import { SessionStore } from '../../core/stores/session.store'
 import { OnboardingStep } from '../../shared/interfaces/onboarding.interface'
 import { ONBOARDING_STEP } from '../../shared/enums/onboarding.enum'
+import { Onboarded } from "../onboarded/onboarded";
 
 @Component({
   selector: 'app-onboarding',
@@ -26,8 +27,9 @@ import { ONBOARDING_STEP } from '../../shared/enums/onboarding.enum'
     InputGroupAddonModule,
     FirstProject,
     VerifyEmail,
-    PIcon
-  ],
+    PIcon,
+    Onboarded
+],
   templateUrl: './onboarding.html',
   styleUrl: './onboarding.css'
 })
