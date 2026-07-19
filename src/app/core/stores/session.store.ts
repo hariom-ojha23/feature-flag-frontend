@@ -87,7 +87,7 @@ export const SessionStore = signalStore(
                 toast.showSuccess('Success', 'Registered sucessfully')
 
                 // send user for email verification and project creation
-                router.navigateByUrl('/onboarding')
+                router.navigate(['/onboarding'])
               }),
               catchError((error: Error) => {
                 toast.showError(error.error?.error, error.error?.message)
@@ -108,7 +108,7 @@ export const SessionStore = signalStore(
               tap(() => {
                 patchState(store, initialState)
                 toast.showSuccess('Success', 'Logout sucessfully')
-                router.navigateByUrl('/login')
+                router.navigate(['/login'])
               }),
               catchError((error) => {
                 toast.showError(error.error?.error, error.error?.message)

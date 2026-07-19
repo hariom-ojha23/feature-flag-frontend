@@ -26,8 +26,6 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       const session = inject(SessionStore)
       session.rehydrate()
-      // wait until initialized flips true before app finishes bootstrapping
-      return firstValueFrom(toObservable(session.initialized).pipe(filter((v) => v === true)))
     })
   ]
 }

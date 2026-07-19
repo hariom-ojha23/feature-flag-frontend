@@ -25,7 +25,7 @@ import { SessionStore } from '../../core/stores/session.store'
   styleUrl: './verify-email.css'
 })
 export class VerifyEmail {
-  private readonly sessionStore = inject(SessionStore)
+  protected readonly session = inject(SessionStore)
 
   timer = signal(60)
 
@@ -50,10 +50,10 @@ export class VerifyEmail {
 
   resendCode() {
     this.startTimer()
-    this.sessionStore.resendEmailVerifyCode()
+    this.session.resendEmailVerifyCode()
   }
 
   verifyEmail() {
-    this.sessionStore.verifyEmail(this.otp)
+    this.session.verifyEmail(this.otp)
   }
 }

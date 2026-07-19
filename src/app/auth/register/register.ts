@@ -20,9 +20,9 @@ import { BuildingColumns } from '@primeicons/angular/building-columns'
 import { CardModule } from 'primeng/card'
 import { ToastMessageService } from '../../shared/services/toast.service'
 import { registerValidationRules } from '../../shared/constants/validation-rules/auth'
-import { AuthService } from '../services/auth.service'
 import { RegisterPayload } from '../../shared/interfaces/auth.interface'
 import { Error } from '../../shared/interfaces/error.interface'
+import { SessionStore } from '../../core/stores/session.store'
 
 @Component({
   selector: 'app-register',
@@ -44,7 +44,7 @@ import { Error } from '../../shared/interfaces/error.interface'
   styleUrl: './register.css'
 })
 export class Register {
-  private readonly authService = inject(AuthService)
+  private readonly session = inject(SessionStore)
   private readonly toast = inject(ToastMessageService)
 
   invalidFields = signal({
@@ -99,18 +99,9 @@ export class Register {
   }
 
   register() {
-    if (!this.validateForm()) {
-      return
-    }
+    if (!this.validateForm()) return
 
     const { confirmPassword, ...payload } = this.form.value
-    this.authService.register(payload as RegisterPayload).subscribe({
-      next: () => {
-        this.toast.showSuccess('Success', 'User registered successfully')
-      },
-      error: ({ error }: Error) => {
-        this.toast.showError(error.error, error.message)
-      }
-    })
+    this.session.register(payload as RegisterPayload)
   }
 }
