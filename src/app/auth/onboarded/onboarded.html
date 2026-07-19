@@ -5,14 +5,14 @@
     </div>
 
     <h1 class="text-lg font-medium">You're all set!</h1>
-    <h3 class="text-center text-neutral-400">
+    <h3 class="text-center text-muted">
       Your account and first project are ready to go. <br />
       Let's start shipping features.
     </h3>
 
-    <div class="w-full rounded-md bg-neutral-700 p-3 mt-1 space-y-1">
+    <div class="w-full bg-surface-700! p-2 rounded-md">
       @for (step of steps; track step) {
-        <div class="flex items-center gap-2 text-sm text-neutral-200">
+        <div class="flex items-center gap-2 text-sm text-secondary my-1">
           <svg pIcon="check-circle" size="16" class="text-green-400"></svg>
           <span>{{ step }}</span>
         </div>

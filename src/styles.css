@@ -2,11 +2,50 @@
 
 @import 'tailwindcss';
 
-
 @theme {
+  /* Primary scale */
   --color-primary: var(--p-primary-color);
   --color-primary-contrast: var(--p-primary-contrast-color);
   --color-primary-50: var(--p-primary-50);
   --color-primary-100: var(--p-primary-100);
-  /* ...add the stops you actually use */
+  --color-primary-200: var(--p-primary-200);
+  --color-primary-300: var(--p-primary-300);
+  --color-primary-400: var(--p-primary-400);
+  --color-primary-500: var(--p-primary-500);
+  --color-primary-600: var(--p-primary-600);
+  --color-primary-700: var(--p-primary-700);
+  --color-primary-800: var(--p-primary-800);
+  --color-primary-900: var(--p-primary-900);
+  --color-primary-950: var(--p-primary-950);
+
+  /* Surface scale — backgrounds, cards, panels */
+  --color-surface-0: var(--p-surface-0);
+  --color-surface-50: var(--p-surface-50);
+  --color-surface-100: var(--p-surface-100);
+  --color-surface-200: var(--p-surface-200);
+  --color-surface-300: var(--p-surface-300);
+  --color-surface-400: var(--p-surface-400);
+  --color-surface-500: var(--p-surface-500);
+  --color-surface-600: var(--p-surface-600);
+  --color-surface-700: var(--p-surface-700);
+  --color-surface-800: var(--p-surface-800);
+  --color-surface-900: var(--p-surface-900);
+  --color-surface-950: var(--p-surface-950);
+
+  /* Semantic text tokens */
+  --color-text: var(--p-text-color);
+  --color-secondary: var(--p-text-secondary-color);
+  --color-muted: var(--p-text-muted-color);
+
+  /* Semantic surface tokens */
+  --color-surface-ground: var(--p-surface-ground);
+  --color-surface-card: var(--p-content-background);
+  --color-surface-border: var(--p-content-border-color);
+  --color-surface-hover: var(--p-highlight-bg);
+
+  /* Status colors */
+  --color-success: var(--p-green-500);
+  --color-warn: var(--p-yellow-500);
+  --color-danger: var(--p-red-500);
+  --color-info: var(--p-blue-500);
 }

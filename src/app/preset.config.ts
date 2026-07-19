@@ -5,17 +5,19 @@ import { environment } from '../environments/environment'
 
 const ThemePreset = definePreset(Aura, {
   semantic: {
-    primary: palette('{emerald}')
+    primary: palette('{emerald}'),
+    surface: palette('{zinc}'),
+    text: palette('{gray}')
   }
 })
 
 export const PrimeNgConfig: PrimeNGConfigType = {
   license: environment.primeLicense,
   theme: {
-    preset: ThemePreset,
+    preset: Aura,
     options: {
       prefix: 'p',
-      darkModeSelector: 'system',
+      darkModeSelector: '.dark',
       cssLayer: false,
       cssVariables: true
     }
