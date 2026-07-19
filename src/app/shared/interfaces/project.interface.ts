@@ -17,4 +17,6 @@ export interface Project {
   archivedAt?: Date
   createdBy: Partial<User>
   updatedBy: Partial<User>
+  createdAt: Date
+  updatedAt: Date
 }

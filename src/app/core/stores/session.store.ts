@@ -194,7 +194,9 @@ export const SessionStore = signalStore(
             }
 
             patchState(store, { loading: true })
-            return sessionService.getSession().pipe(
+
+            const activeProjectId = store.project()?.id
+            return sessionService.getSession(activeProjectId).pipe(
               tap(({ user, tenant, project, availableProjects }) => {
                 patchState(store, {
                   user,

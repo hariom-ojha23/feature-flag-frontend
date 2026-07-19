@@ -6,7 +6,13 @@ import { SessionResponse } from '../../shared/interfaces/session-state.interface
 export class SessionService {
   private api = inject(ApiService)
 
-  getSession() {
-    return this.api.get<SessionResponse>('auth/session')
+  getSession(projectId: string | undefined = undefined) {
+    let endPoint = `auth/session`
+
+    if (projectId) {
+      endPoint += `?projectId=${projectId}`
+    }
+
+    return this.api.get<SessionResponse>(endPoint)
   }
 }
