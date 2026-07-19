@@ -4,20 +4,25 @@ import { Register } from './auth/register/register'
 import { AuthLayout } from './layout/auth-layout/auth-layout'
 import { MainLayout } from './layout/main-layout/main-layout'
 import { Onboarding } from './auth/onboarding/onboarding'
+import { Dashboard } from './feature/dashboard/dashboard'
+import { AuthGuard } from './core/guards/auth.guard'
+import { onboardingGuard } from './core/guards/onboarding.guard'
+import { GuestGuard } from './core/guards/guest.guard'
 
 export const routes: Routes = [
   {
     path: '',
     component: AuthLayout,
     children: [
-      { path: 'login', component: Login },
-      { path: 'register', component: Register },
-      { path: 'onboarding', component: Onboarding },
+      { path: 'login', component: Login, canActivate: [GuestGuard] },
+      { path: 'register', component: Register, canActivate: [GuestGuard] },
+      { path: 'onboarding', component: Onboarding, canActivate: [onboardingGuard] }
     ]
   },
   {
     path: '',
     component: MainLayout,
-    children: []
+    canActivate: [AuthGuard],
+    children: [{ path: 'dashboard', component: Dashboard }]
   }
 ]

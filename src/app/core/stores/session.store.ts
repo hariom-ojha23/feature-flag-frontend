@@ -57,9 +57,9 @@ export const SessionStore = signalStore(
                  */
 
                 if (!user.isEmailVerified || !project) {
-                  router.navigateByUrl('/onboarding')
+                  router.navigate(['/onboarding'])
                 } else {
-                  router.navigateByUrl('/dashboard')
+                  router.navigate(['/dashboard'])
                 }
               }),
               catchError((error: Error) => {
