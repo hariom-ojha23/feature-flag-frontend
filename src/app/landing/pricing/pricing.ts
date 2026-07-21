@@ -45,7 +45,7 @@ export class Pricing {
       features: [
         'Up to 2M evaluations/mo',
         'Unlimited environments',
-        'Up to 25 team members',
+        'Up to 20 team members',
         'Progressive rollouts & targeting',
         'Priority email support'
       ],
@@ -54,7 +54,7 @@ export class Pricing {
     {
       name: 'Enterprise',
       description: 'For organizations with advanced security and scale needs.',
-      monthlyPrice: 2499,
+      monthlyPrice: 2999,
       featured: false,
       features: [
         'Unlimited evaluations',
