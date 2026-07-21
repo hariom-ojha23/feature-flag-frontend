@@ -8,7 +8,7 @@ import { Dashboard } from './feature/dashboard/dashboard'
 import { AuthGuard } from './core/guards/auth.guard'
 import { onboardingGuard } from './core/guards/onboarding.guard'
 import { GuestGuard } from './core/guards/guest.guard'
-import { Landing } from './feature/landing/landing'
+import { Landing } from './landing/landing'
 
 export const routes: Routes = [
   { path: '', component: Landing },

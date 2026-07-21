@@ -1,0 +1,95 @@
+.app-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--p-zinc-800, #27272a);
+  background-color: color-mix(in srgb, var(--p-zinc-950, #09090b) 75%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.app-navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+}
+
+.app-navbar__brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.app-navbar__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  color: #052e1f;
+  font-size: 0.9rem;
+}
+
+.app-navbar__brand-text {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  color: var(--p-zinc-50, #fafafa);
+}
+
+.app-navbar__links {
+  display: none;
+  align-items: center;
+  gap: 1.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.app-navbar__link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--p-zinc-400, #a1a1aa);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.app-navbar__link:hover {
+  color: var(--p-zinc-50, #fafafa);
+}
+
+.app-navbar__actions {
+  display: none;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.app-navbar__drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.app-navbar__drawer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--p-zinc-800, #27272a);
+}
+
+@media (min-width: 1024px) {
+  .app-navbar__links,
+  .app-navbar__actions {
+    display: flex;
+  }
+
+  .app-navbar__toggle {
+    display: none;
+  }
+}

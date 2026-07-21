@@ -1,0 +1,38 @@
+.faq {
+  padding-block: 3rem 4rem;
+}
+
+.faq__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 40rem;
+  margin-bottom: 2.5rem;
+}
+
+.faq__title {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--p-zinc-50, #fafafa);
+  margin: 0;
+}
+
+.faq__subtitle {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--p-zinc-400, #a1a1aa);
+  margin: 0;
+}
+
+.faq__panel {
+  max-width: 48rem;
+}
+
+.faq__answer {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--p-zinc-400, #a1a1aa);
+}

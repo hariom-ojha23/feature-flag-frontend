@@ -1,0 +1,98 @@
+<section id="interactive-demo" class="demo section-container" aria-labelledby="demo-heading">
+  <div class="demo__header">
+    <span class="section-eyebrow">
+      <svg pIcon="sliders-h" aria-hidden="true" size="22"></svg>
+      Try it yourself
+    </span>
+    <h2 id="demo-heading" class="demo__title">
+      See a rollout <span class="gradient-text">decide in real time</span>
+    </h2>
+    <p class="demo__subtitle">
+      Adjust the rollout percentage and simulate a user. Featurix hashes each user into a stable
+      bucket, so the same person always gets the same result at a given rollout.
+    </p>
+  </div>
+
+  <div class="demo__panel card-surface">
+    <div class="demo__controls">
+      <div class="demo__control">
+        <label for="rollout-slider" class="demo__label">
+          Rollout percentage
+          <span class="demo__label-value">{{ rollout() }}%</span>
+        </label>
+        <p-slider
+          inputId="rollout-slider"
+          [(ngModel)]="rollout"
+          [min]="0"
+          [max]="100"
+          styleClass="demo__slider"
+        />
+      </div>
+
+      <div class="demo__control-grid">
+        <div class="demo__control">
+          <label for="env-select" class="demo__label">Environment</label>
+          <p-select
+            inputId="env-select"
+            [options]="environments"
+            [(ngModel)]="environment"
+            styleClass="w-full"
+          />
+        </div>
+
+        <div class="demo__control">
+          <label for="country-select" class="demo__label">Country</label>
+          <p-select
+            inputId="country-select"
+            [options]="countries"
+            [(ngModel)]="country"
+            styleClass="w-full"
+          />
+        </div>
+
+        <div class="demo__control">
+          <label for="role-select" class="demo__label">User role</label>
+          <p-select
+            inputId="role-select"
+            [options]="roles"
+            [(ngModel)]="role"
+            styleClass="w-full"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="demo__results">
+      <div class="demo__result-card" [class.demo__result-card--match]="currentUserResult()">
+        <span class="demo__result-label">Your simulated user</span>
+        <div class="demo__result-body">
+          <p-tag
+            [value]="currentUserResult() ? 'Flag ON' : 'Flag OFF'"
+            [severity]="currentUserResult() ? 'success' : 'danger'"
+          />
+          <p class="demo__result-detail">
+            {{ role() }} in {{ country() }} · {{ environment() }} · bucket
+            {{ currentUserBucket() }}/100
+          </p>
+        </div>
+      </div>
+
+      <div class="demo__population">
+        <div class="demo__population-header">
+          <span class="demo__label">Simulated population (30 users)</span>
+          <span class="demo__population-count">{{ matchedCount() }} / 30 matched</span>
+        </div>
+        <div class="demo__population-grid" role="img" aria-label="Population rollout preview">
+          @for (user of sampleUsers; track user.id) {
+            <span
+              class="demo__population-dot"
+              [class.demo__population-dot--on]="user.bucket < rollout()"
+            >
+            <svg pIcon="user" size="22"></svg>  
+          </span>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -49,3 +49,115 @@
   --color-danger: var(--p-red-500);
   --color-info: var(--p-blue-500);
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--p-zinc-950, #09090b);
+  color: var(--p-zinc-100, #f4f4f5);
+}
+
+::selection {
+  background-color: var(--p-emerald-500, #10b981);
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------
+   Reusable landing-page utility classes
+   (kept generic + shared across sections)
+--------------------------------------------------- */
+.section-container {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .section-container {
+    padding-inline: 2rem;
+  }
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--p-emerald-400, #34d399);
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #ffffff, #a1a1aa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glow-border {
+  border: 1px solid var(--p-zinc-800, #27272a);
+  background-color: color-mix(in srgb, var(--p-zinc-900, #18181b) 80%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.card-surface {
+  border-radius: 1rem;
+  border: 1px solid var(--p-zinc-800, #27272a);
+  background-color: var(--p-zinc-900, #18181b);
+}
+
+/* Lightweight, GPU-friendly transitions only — no animation libraries */
+.transition-base {
+  transition: all 200ms ease;
+}
+
+.hover-lift {
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  border-color: var(--p-emerald-600, #059669);
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 500ms ease both;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+/* PrimeNG surface tweaks to blend with the dark zinc canvas */
+.p-component {
+  font-family: var(--font-sans);
+}

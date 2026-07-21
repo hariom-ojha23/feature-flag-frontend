@@ -1,0 +1,35 @@
+<section class="sdk section-container" aria-labelledby="sdk-heading">
+  <div class="sdk__header">
+    <span class="section-eyebrow">
+      <svg pIcon="code" size="22"></svg>
+      Integrate in minutes
+    </span>
+    <h2 id="sdk-heading" class="sdk__title">
+      One API, <span class="gradient-text">every language you ship in</span>
+    </h2>
+    <p class="sdk__subtitle">
+      Drop a Featurix client into any service and start evaluating flags with a single method call —
+      the same mental model across every SDK.
+    </p>
+  </div>
+
+  <div class="sdk__panel glow-border">
+    <div class="sdk__toolbar">
+      <p-selectbutton
+        [options]="languages"
+        [(ngModel)]="activeLanguage"
+        [allowEmpty]="false"
+        styleClass="sdk__language-switch"
+      />
+      <button pButton severity="secondary" [outlined]="true" size="small" (onClick)="copySnippet()">
+        {{ copied() ? 'Copied' : 'Copy' }}
+        <svg [pIcon]="copied() ? 'check' : 'copy'"></svg>
+      </button>
+    </div>
+
+    <pre
+      class="sdk__code"
+      aria-label="Code example for {{ activeLanguage() }}"
+    ><code>{{ activeSnippet() }}</code></pre>
+  </div>
+</section>

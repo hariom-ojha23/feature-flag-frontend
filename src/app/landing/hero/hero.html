@@ -1,0 +1,143 @@
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero__glow" aria-hidden="true"></div>
+
+  <div class="section-container hero__inner">
+    <div class="hero__copy animate-fade-in-up">
+      <span class="section-eyebrow">
+        <svg pIcon="sparkles"></svg>
+        Feature management, done right
+      </span>
+
+      <h1 id="hero-heading" class="hero__title">
+        Ship features
+        <span class="gradient-text">without the fear</span>
+      </h1>
+
+      <p class="hero__subtitle">
+        Featurix lets your team roll out, target, and measure every feature in real time — no
+        redeploys, no guesswork. Flip a switch, watch it work.
+      </p>
+
+      <div class="hero__actions">
+        <button pButton size="large" routerLink="/register">
+          Start building for free <svg pIcon="arrow-right"></svg>
+        </button>
+      </div>
+
+      <div class="hero__meta">
+        <span><svg pIcon="check-circle" color="green"></svg> No credit card required</span>
+        <span><svg pIcon="check-circle" color="green"></svg> Free up to 10k evaluations/mo</span>
+      </div>
+    </div>
+
+    <!-- Live product dashboard mock -->
+    <div class="hero__dashboard-wrapper animate-fade-in-up">
+      <div
+        class="dashboard glow-border"
+        role="img"
+        aria-label="Featurix feature flag dashboard preview"
+      >
+        <div class="dashboard__titlebar">
+          <div class="dashboard__dots"><span></span><span></span><span></span></div>
+          <div class="dashboard__env-selector">
+            <p-select
+              [options]="environments"
+              [(ngModel)]="selectedEnvironment"
+              [style]="{ minWidth: '10rem' }"
+            />
+          </div>
+        </div>
+
+        <div class="dashboard__stats">
+          <div class="dashboard__stat-card">
+            <span class="dashboard__stat-label">Active flags</span>
+            <span class="dashboard__stat-value">{{ activeFlagCount() }}</span>
+          </div>
+          <div class="dashboard__stat-card">
+            <span class="dashboard__stat-label">Avg. rollout</span>
+            <span class="dashboard__stat-value">{{ averageRollout() }}%</span>
+          </div>
+          <div class="dashboard__stat-card">
+            <span class="dashboard__stat-label">Evaluations / min</span>
+            <span class="dashboard__stat-value">12.4k</span>
+          </div>
+          <div class="dashboard__stat-card">
+            <span class="dashboard__stat-label">SDKs connected</span>
+            <span class="dashboard__stat-value">18</span>
+          </div>
+        </div>
+
+        <div class="dashboard__body">
+          <div class="dashboard__flags">
+            <div class="dashboard__panel-header">
+              <h3>Feature flags</h3>
+              <p-tag [value]="selectedEnvironment()" severity="success" />
+            </div>
+
+            <ul class="dashboard__flag-list">
+              @for (flag of flags(); track flag.id) {
+                <li class="dashboard__flag-row">
+                  <div class="dashboard__flag-info">
+                    <p-toggleswitch
+                      [ngModel]="flag.enabled"
+                      (ngModelChange)="toggleFlag(flag.id)"
+                      [attr.aria-label]="'Toggle ' + flag.name"
+                    />
+                    <div>
+                      <p class="dashboard__flag-name">{{ flag.name }}</p>
+                      <p class="dashboard__flag-key">{{ flag.key }}</p>
+                    </div>
+                  </div>
+
+                  <div class="dashboard__flag-rollout">
+                    <p-progressbar
+                      [value]="flag.enabled ? flag.rollout : 0"
+                      [showValue]="false"
+                      styleClass="dashboard__progress"
+                    />
+                    <span class="dashboard__flag-rollout-value">
+                      {{ flag.enabled ? flag.rollout : 0 }}%
+                    </span>
+                  </div>
+                </li>
+              }
+            </ul>
+          </div>
+
+          <div class="dashboard__evaluations">
+            <div class="dashboard__panel-header">
+              <h3>Recent evaluations</h3>
+              <span class="dashboard__live-indicator">
+                <span class="dashboard__live-dot animate-pulse-dot"></span> Live
+              </span>
+            </div>
+
+            <ul class="dashboard__eval-list">
+              @for (evaluation of evaluations; track evaluation.id) {
+                <li class="dashboard__eval-row">
+                  <div class="dashboard__eval-main">
+                    <span class="dashboard__eval-user">{{ evaluation.user }}</span>
+                    <span class="dashboard__eval-flag">{{ evaluation.flagKey }}</span>
+                  </div>
+                  <div class="dashboard__eval-side">
+                    <p-tag
+                      [value]="evaluation.result"
+                      [severity]="evaluation.result === 'true' ? 'success' : 'danger'"
+                    />
+                    <span class="dashboard__eval-time">{{ evaluation.timeAgo }}</span>
+                  </div>
+                </li>
+              }
+            </ul>
+
+            <div class="dashboard__mini-chart" aria-hidden="true">
+              @for (bar of [40, 65, 50, 80, 60, 90, 70, 95, 85, 100]; track $index) {
+                <span class="dashboard__mini-bar" [style.height.%]="bar"></span>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

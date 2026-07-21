@@ -1,0 +1,126 @@
+<section class="showcase section-container" aria-labelledby="showcase-heading">
+  <div class="showcase__header">
+    <span class="section-eyebrow">
+      <svg pIcon="desktop" size="22" aria-hidden="true"></svg>
+      Inside Featurix
+    </span>
+    <h2 id="showcase-heading" class="showcase__title">
+      One dashboard, <span class="gradient-text">your whole release process</span>
+    </h2>
+    <p class="showcase__subtitle">
+      Flags, rollout history, team access, and a full audit trail — everything your team needs to
+      ship safely, in one place.
+    </p>
+  </div>
+
+  <div class="showcase__panel glow-border">
+    <p-tabs [(value)]="activeTab">
+      <p-tablist>
+        <p-tab value="overview">
+          <span class="flex gap-2"><svg pIcon="th-large" size="22"></svg> Overview</span>
+        </p-tab>
+        <p-tab value="flags">
+          <span class="flex gap-2"><svg pIcon="flag" size="22"></svg> Flags</span>
+        </p-tab>
+        <p-tab value="team">
+          <span class="flex gap-2"><svg pIcon="users" size="22"></svg> Team</span>
+        </p-tab>
+        <p-tab value="audit">
+          <span class="flex gap-2"><svg pIcon="history" size="22"></svg> Audit log</span>
+        </p-tab>
+      </p-tablist>
+
+      <p-tabpanels>
+        <p-tabpanel value="overview">
+          <div class="showcase__overview">
+            <div class="showcase__overview-stats">
+              <div class="showcase__stat">
+                <span class="showcase__stat-label">Total flags</span>
+                <span class="showcase__stat-value">{{ flags.length }}</span>
+              </div>
+              <div class="showcase__stat">
+                <span class="showcase__stat-label">Active</span>
+                <span class="showcase__stat-value">{{ activeFlagCount }}</span>
+              </div>
+            </div>
+
+            <ul class="showcase__overview-list">
+              @for (flag of flags.slice(0, 4); track flag.key) {
+                <li class="showcase__overview-row">
+                  <div class="showcase__overview-info">
+                    <p-tag
+                      size="large"
+                      [value]="flag.status"
+                      [severity]="statusSeverity(flag.status)"
+                    />
+                    <span class="showcase__overview-name">{{ flag.name }}</span>
+                  </div>
+                  <div class="showcase__overview-rollout">
+                    <p-progressbar [value]="flag.rollout" [showValue]="false" />
+                    <span>{{ flag.rollout }}%</span>
+                  </div>
+                </li>
+              }
+            </ul>
+          </div>
+        </p-tabpanel>
+
+        <p-tabpanel value="flags">
+          <p-table
+            [value]="flags"
+            [tableStyle]="{ 'min-width': '38rem' }"
+            styleClass="showcase__table"
+          >
+            <ng-template #header>
+              <tr>
+                <th>Flag</th>
+                <th>Environment</th>
+                <th>Status</th>
+                <th>Rollout</th>
+              </tr>
+            </ng-template>
+            <ng-template #body let-flag>
+              <tr>
+                <td>
+                  <p class="showcase__table-name">{{ flag.name }}</p>
+                  <p class="showcase__table-key">{{ flag.key }}</p>
+                </td>
+                <td>{{ flag.environment }}</td>
+                <td><p-tag [value]="flag.status" [severity]="statusSeverity(flag.status)" /></td>
+                <td>{{ flag.rollout }}%</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-tabpanel>
+
+        <p-tabpanel value="team">
+          <ul class="showcase__team">
+            @for (member of team; track member.name) {
+              <li class="showcase__team-row">
+                <p-avatar [label]="member.initials" shape="circle" size="large" />
+                <div>
+                  <p class="showcase__team-name">{{ member.name }}</p>
+                  <p class="showcase__team-role">{{ member.role }}</p>
+                </div>
+              </li>
+            }
+          </ul>
+        </p-tabpanel>
+
+        <p-tabpanel value="audit">
+          <p-timeline [value]="auditEvents" styleClass="showcase__timeline">
+            <ng-template #content let-event>
+              <p class="showcase__audit-description">{{ event.description }}</p>
+              <p class="showcase__audit-meta">{{ event.actor }} · {{ event.time }}</p>
+            </ng-template>
+            <ng-template #marker let-event>
+              <span class="showcase__audit-marker">
+                <svg [pIcon]="event.icon" size="22" aria-hidden="true"></svg>
+              </span>
+            </ng-template>
+          </p-timeline>
+        </p-tabpanel>
+      </p-tabpanels>
+    </p-tabs>
+  </div>
+</section>

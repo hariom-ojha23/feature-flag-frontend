@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: var(--p-zinc-950, #09090b);
+  background-image:
+    radial-gradient(
+      circle at 15% 0%,
+      color-mix(in srgb, var(--p-emerald-900, #064e3b) 35%, transparent),
+      transparent 45%
+    ),
+    linear-gradient(to bottom, transparent, var(--p-zinc-950, #09090b) 90%);
+}
+
+main {
+  display: block;
+}

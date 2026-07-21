@@ -1,0 +1,61 @@
+<section id="pricing" class="pricing section-container" aria-labelledby="pricing-heading">
+  <div class="pricing__header">
+    <span class="section-eyebrow">
+      <svg pIcon="wallet" size="22" aria-hidden="true"></svg>
+      Simple pricing
+    </span>
+    <h2 id="pricing-heading" class="pricing__title">
+      Pricing that <span class="gradient-text">scales with you</span>
+    </h2>
+    <p class="pricing__subtitle">
+      Start free, upgrade when you need more. No surprise overage bills.
+    </p>
+
+    <div class="pricing__toggle">
+      <span [class.pricing__toggle-label--active]="!annualBilling()">Monthly</span>
+      <p-toggleswitch [(ngModel)]="annualBilling" />
+      <span [class.pricing__toggle-label--active]="annualBilling()">
+        Annual
+        <p-tag value="Save 20%" severity="success" class="pricing__save-tag" />
+      </span>
+    </div>
+  </div>
+
+  <div class="pricing__grid">
+    @for (plan of plans; track plan.name) {
+      <div class="pricing__card" [class.pricing__card--featured]="plan.featured">
+        @if (plan.featured) {
+          <p-tag value="Most popular" severity="success" class="pricing__badge" />
+        }
+
+        <h3 class="pricing__plan-name">{{ plan.name }}</h3>
+        <p class="pricing__plan-description">{{ plan.description }}</p>
+
+        <div class="pricing__price">
+          <span class="pricing__price-amount">&#8377;{{ displayedPrice(plan) }}</span>
+          <span class="pricing__price-period">
+            / month{{ annualBilling() && plan.monthlyPrice > 0 ? ', billed annually' : '' }}
+          </span>
+        </div>
+
+        <button
+          pButton
+          [severity]="plan.featured ? 'primary' : 'secondary'"
+          [outlined]="!plan.featured"
+          class="w-full"
+        >
+          {{ plan.cta }}
+        </button>
+
+        <ul class="pricing__features">
+          @for (feature of plan.features; track feature) {
+            <li>
+              <svg pIcon="check" aria-hidden="true"></svg>
+              {{ feature }}
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</section>

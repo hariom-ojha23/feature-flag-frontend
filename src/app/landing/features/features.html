@@ -1,0 +1,27 @@
+<section id="features" class="features section-container" aria-labelledby="features-heading">
+  <div class="features__header">
+    <span class="section-eyebrow">
+      <svg pIcon="th-large" size="22" aria-hidden="true"></svg>
+      Everything you need
+    </span>
+    <h2 id="features-heading" class="features__title">
+      Built for teams who ship <span class="gradient-text">every day</span>
+    </h2>
+    <p class="features__subtitle">
+      From granular targeting to full audit trails, Featurix gives engineering and product teams a
+      single, reliable control plane for every feature.
+    </p>
+  </div>
+
+  <div class="features__grid">
+    @for (feature of features; track feature.title) {
+      <p-card styleClass="features__card hover-lift">
+        <div class="features__icon">
+          <svg [pIcon]="feature.icon" size="22" aria-hidden="true"></svg>
+        </div>
+        <h3 class="features__card-title">{{ feature.title }}</h3>
+        <p class="features__card-description">{{ feature.description }}</p>
+      </p-card>
+    }
+  </div>
+</section>

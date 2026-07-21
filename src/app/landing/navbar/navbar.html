@@ -1,0 +1,68 @@
+<header class="app-navbar">
+  <nav class="section-container app-navbar__inner" aria-label="Primary">
+    <a href="#" class="app-navbar__brand" aria-label="Featurix home">
+      <img class="app-navbar__logo" [src]="logoUrl" alt="Featurix" aria-hidden="true" />
+      <span class="app-navbar__brand-text">Featurix</span>
+    </a>
+
+    <ul class="app-navbar__links">
+      @for (link of links; track link.fragment) {
+        <li>
+          <a [href]="'#' + link.fragment" class="app-navbar__link">{{ link.label }}</a>
+        </li>
+      }
+    </ul>
+
+    <div class="app-navbar__actions">
+      <button pButton variant="link" routerLink="/login">Login</button>
+      <button pButton routerLink="/register">
+        Start Free
+        <svg pIcon="arrow-right"></svg>
+      </button>
+    </div>
+
+    <button
+      type="button"
+      pButton
+      iconOnly
+      variant="outlined"
+      aria-label="Open menu"
+      class="app-navbar__toggle"
+      (click)="openMobileMenu()"
+    >
+      <svg pIcon="bars"></svg>
+    </button>
+  </nav>
+</header>
+
+<p-drawer
+  position="right"
+  styleClass="app-navbar__drawer"
+  (visibleChange)="mobileMenuOpen.set($event)"
+  [modal]="true"
+  [visible]="mobileMenuOpen()"
+>
+  <ng-template #headertemplate>
+    <span class="app-navbar__brand-text">Featurix</span>
+  </ng-template>
+
+  <ul class="app-navbar__drawer-links">
+    @for (link of links; track link.fragment) {
+      <li>
+        <a [href]="'#' + link.fragment" class="app-navbar__link" (click)="closeMobileMenu()">
+          {{ link.label }}
+        </a>
+      </li>
+    }
+  </ul>
+
+  <div class="app-navbar__drawer-actions">
+    <a href="#" class="app-navbar__link app-navbar__link--secondary" (click)="closeMobileMenu()">
+      Sign in
+    </a>
+    <button pButton>
+      Start Free
+      <svg pIcon="arrow-right"></svg>
+    </button>
+  </div>
+</p-drawer>

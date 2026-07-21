@@ -1,0 +1,67 @@
+<footer class="footer" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+
+  <div class="section-container footer__inner">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="#" class="footer__logo" aria-label="Featurix home">
+          <img class="footer__logo-icon" [src]="logoUrl" alt="Featurix" aria-hidden="true" />
+          <span class="footer__logo-text">Featurix</span>
+        </a>
+        <p class="footer__tagline">
+          Feature management for teams who ship every day. Roll out, target, and measure —
+          without the fear.
+        </p>
+
+        <form class="footer__newsletter" (ngSubmit)="subscribe()" #newsletterForm="ngForm">
+          @if (!subscribed()) {
+            <label for="footer-email" class="sr-only">Email address</label>
+            <input
+              id="footer-email"
+              type="email"
+              pInputText
+              placeholder="you&#64;company.com"
+              [(ngModel)]="email"
+              name="email"
+              required
+              class="footer__newsletter-input"
+            />
+            <button pButton type="submit">Subscribe</button>
+          } @else {
+            <p class="footer__newsletter-success">
+              <svg pIcon="check-circle" aria-hidden="true"></svg>
+              You're subscribed — thanks for joining!
+            </p>
+          }
+        </form>
+      </div>
+
+      <nav class="footer__links" aria-label="Footer">
+        @for (group of linkGroups; track group.title) {
+          <div class="footer__link-group">
+            <h3>{{ group.title }}</h3>
+            <ul>
+              @for (link of group.links; track link.label) {
+                <li><a [href]="link.href">{{ link.label }}</a></li>
+              }
+            </ul>
+          </div>
+        }
+      </nav>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copyright">&copy; {{ currentYear }} Featurix, Inc. All rights reserved.</p>
+
+      <ul class="footer__social">
+        @for (social of socialLinks; track social.label) {
+          <li>
+            <a [href]="social.href" [attr.aria-label]="social.label" class="footer__social-link">
+              <svg size="22" pIcon="{{ social.icon }}" aria-hidden="true"></svg>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</footer>
