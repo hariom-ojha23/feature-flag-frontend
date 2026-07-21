@@ -23,6 +23,7 @@ import { registerValidationRules } from '../../shared/constants/validation-rules
 import { RegisterPayload } from '../../shared/interfaces/auth.interface'
 import { Error } from '../../shared/interfaces/error.interface'
 import { SessionStore } from '../../core/stores/session.store'
+import { LogoWithName } from "../../shared/components/logo-with-name/logo-with-name";
 
 @Component({
   selector: 'app-register',
@@ -38,8 +39,9 @@ import { SessionStore } from '../../core/stores/session.store'
     User,
     Lock,
     Envelope,
-    BuildingColumns
-  ],
+    BuildingColumns,
+    LogoWithName
+],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })

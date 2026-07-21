@@ -12,16 +12,14 @@
     </p>
   </div>
 
-  <div class="faq__panel">
-    <p-accordion [value]="0">
-      @for (item of faqs; track item.question; let i = $index) {
-        <p-accordion-panel [value]="i">
-          <p-accordion-header>{{ item.question }}</p-accordion-header>
-          <p-accordion-content>
-            <p class="faq__answer">{{ item.answer }}</p>
-          </p-accordion-content>
-        </p-accordion-panel>
-      }
-    </p-accordion>
-  </div>
+  <p-accordion value="0">
+    @for (item of faqs; track item.question) {
+      <p-accordion-panel [value]="item.value">
+        <p-accordion-header>{{ item.question }}</p-accordion-header>
+        <p-accordion-content>
+          <p class="text-muted">{{ item.answer }}</p>
+        </p-accordion-content>
+      </p-accordion-panel>
+    }
+  </p-accordion>
 </section>

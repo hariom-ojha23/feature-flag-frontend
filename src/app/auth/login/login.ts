@@ -20,6 +20,7 @@ import { ToastMessageService } from '../../shared/services/toast.service'
 import { LoginPayload } from '../../shared/interfaces/auth.interface'
 import { Error } from '../../shared/interfaces/error.interface'
 import { SessionStore } from '../../core/stores/session.store'
+import { LogoWithName } from "../../shared/components/logo-with-name/logo-with-name";
 
 @Component({
   selector: 'app-login',
@@ -33,8 +34,9 @@ import { SessionStore } from '../../core/stores/session.store'
     ReactiveFormsModule,
     RouterModule,
     Envelope,
-    Lock
-  ],
+    Lock,
+    LogoWithName
+],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })

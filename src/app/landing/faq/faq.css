@@ -25,14 +25,3 @@
   color: var(--p-zinc-400, #a1a1aa);
   margin: 0;
 }
-
-.faq__panel {
-  max-width: 48rem;
-}
-
-.faq__answer {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: var(--p-zinc-400, #a1a1aa);
-}
