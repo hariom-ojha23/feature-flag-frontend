@@ -1,7 +1,7 @@
 <header class="app-navbar">
   <nav class="section-container app-navbar__inner" aria-label="Primary">
     <a href="#" class="app-navbar__brand" aria-label="Featurix home">
-      <img class="app-navbar__logo" [src]="logoUrl" alt="Featurix" aria-hidden="true" />
+      <img class="app-navbar__logo" src="images/featurix.png" alt="Featurix" aria-hidden="true" />
       <span class="app-navbar__brand-text">Featurix</span>
     </a>
 
@@ -57,10 +57,16 @@
   </ul>
 
   <div class="app-navbar__drawer-actions">
-    <a href="#" class="app-navbar__link app-navbar__link--secondary" (click)="closeMobileMenu()">
-      Sign in
-    </a>
-    <button pButton>
+    <button
+      pButton
+      severity="secondary"
+      variant="outlined"
+      routerLink="/login"
+      (click)="closeMobileMenu()"
+    >
+      Login
+    </button>
+    <button pButton routerLink="/register">
       Start Free
       <svg pIcon="arrow-right"></svg>
     </button>

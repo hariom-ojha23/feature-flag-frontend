@@ -3,7 +3,6 @@ import { PIcon } from '@primeicons/angular/p-icon'
 import { ButtonModule } from 'primeng/button'
 import { DrawerModule } from 'primeng/drawer'
 import { SidebarModule } from 'primeng/sidebar'
-import { LOGO_URLS } from '../../shared/enums/logo-urls.enum'
 import { RouterModule } from '@angular/router'
 
 interface NavLink {
@@ -19,12 +18,10 @@ interface NavLink {
 })
 export class Navbar {
   protected readonly mobileMenuOpen = signal(false)
-  protected readonly logoUrl = LOGO_URLS.LOGO
 
   protected readonly links: NavLink[] = [
     { label: 'Features', fragment: 'features' },
     { label: 'Demo', fragment: 'interactive-demo' },
-    { label: 'Analytics', fragment: 'analytics' },
     { label: 'Pricing', fragment: 'pricing' },
     { label: 'FAQ', fragment: 'faq' }
   ]

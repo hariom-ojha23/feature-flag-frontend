@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from "primeng/button";
 import { PIcon } from "@primeicons/angular/p-icon";
 import { InputTextModule } from 'primeng/inputtext';
-import { LOGO_URLS } from '../../shared/enums/logo-urls.enum';
 
 interface FooterLinkGroup {
   title: string
@@ -23,8 +22,6 @@ interface SocialLink {
   styleUrl: './footer.css'
 })
 export class Footer {
-  protected readonly logoUrl = LOGO_URLS.LOGO
-
   protected readonly currentYear = new Date().getFullYear()
 
   protected readonly email = signal('')

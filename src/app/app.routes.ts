@@ -1,30 +1,43 @@
 import { Routes } from '@angular/router'
-import { Login } from './auth/login/login'
-import { Register } from './auth/register/register'
-import { AuthLayout } from './layout/auth-layout/auth-layout'
-import { MainLayout } from './layout/main-layout/main-layout'
-import { Onboarding } from './auth/onboarding/onboarding'
-import { Dashboard } from './feature/dashboard/dashboard'
 import { AuthGuard } from './core/guards/auth.guard'
 import { onboardingGuard } from './core/guards/onboarding.guard'
 import { GuestGuard } from './core/guards/guest.guard'
-import { Landing } from './landing/landing'
 
 export const routes: Routes = [
-  { path: '', component: Landing },
   {
     path: '',
-    component: AuthLayout,
+    loadComponent: () => import('./landing/landing').then((m) => m.Landing)
+  },
+  {
+    path: '',
+    loadComponent: () => import('./layout/auth-layout/auth-layout').then((m) => m.AuthLayout),
     children: [
-      { path: 'login', component: Login, canActivate: [GuestGuard] },
-      { path: 'register', component: Register, canActivate: [GuestGuard] },
-      { path: 'onboarding', component: Onboarding, canActivate: [onboardingGuard] }
+      {
+        path: 'login',
+        loadComponent: () => import('./auth/login/login').then((m) => m.Login),
+        canActivate: [GuestGuard]
+      },
+      {
+        path: 'register',
+        loadComponent: () => import('./auth/register/register').then((m) => m.Register),
+        canActivate: [GuestGuard]
+      },
+      {
+        path: 'onboarding',
+        loadComponent: () => import('./auth/onboarding/onboarding').then((m) => m.Onboarding),
+        canActivate: [onboardingGuard]
+      }
     ]
   },
   {
     path: '',
-    component: MainLayout,
+    loadComponent: () => import('./layout/main-layout/main-layout').then((m) => m.MainLayout),
     canActivateChild: [AuthGuard],
-    children: [{ path: 'dashboard', component: Dashboard }]
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./feature/dashboard/dashboard').then((m) => m.Dashboard)
+      }
+    ]
   }
 ]
