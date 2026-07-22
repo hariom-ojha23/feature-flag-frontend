@@ -342,3 +342,60 @@
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+.dashboard__progress.p-progressbar {
+  height: 0.4rem;
+  border-radius: 999px;
+  background-color: var(--p-zinc-800, #27272a);
+  overflow: hidden;
+}
+
+.dashboard__progress .p-progressbar-value {
+  background: linear-gradient(
+    to right,
+    var(--p-emerald-600, #059669),
+    var(--p-emerald-400, #34d399)
+  );
+  border-radius: 999px;
+}
+
+.dashboard__flag-name {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--p-zinc-100, #f4f4f5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.dashboard__flag-key {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .dashboard__flag-rollout {
+    width: 5rem;
+  }
+
+  .dashboard__stat-card {
+    padding: 0.7rem 0.85rem;
+  }
+
+  .dashboard__stat-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.02em;
+  }
+
+  .dashboard__stat-value {
+    font-size: 1.05rem;
+  }
+
+  .dashboard__flags,
+  .dashboard__evaluations {
+    padding: 0.85rem;
+  }
+}
