@@ -19,11 +19,10 @@ import { Envelope } from '@primeicons/angular/envelope'
 import { BuildingColumns } from '@primeicons/angular/building-columns'
 import { CardModule } from 'primeng/card'
 import { ToastMessageService } from '../../shared/services/toast.service'
-import { registerValidationRules } from '../../shared/constants/validation-rules/auth'
-import { RegisterPayload } from '../../shared/interfaces/auth.interface'
-import { Error } from '../../shared/interfaces/error.interface'
+import { RegisterPayload } from '../interfaces/auth.interface'
 import { SessionStore } from '../../core/stores/session.store'
 import { LogoWithName } from "../../shared/components/logo-with-name/logo-with-name";
+import { registerValidationRules } from '../../shared/validations/auth.rule'
 
 @Component({
   selector: 'app-register',

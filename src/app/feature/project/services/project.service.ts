@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core'
 import { ApiService } from '../../../shared/services/api.service'
-import { Project, ProjectPayload } from '../../../shared/interfaces/project.interface'
+import { Project, ProjectPayload } from '../interfaces/project.interface'
 
 @Injectable({ providedIn: 'root' })
 export class ProjectService {

@@ -6,14 +6,14 @@ import { InputGroupModule } from 'primeng/inputgroup'
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon'
 import { StepperModule } from 'primeng/stepper'
 import { InputTextModule } from 'primeng/inputtext'
-import { FirstProject } from '../first-project/first-project'
-import { VerifyEmail } from '../verify-email/verify-email'
+import { FirstProject } from '../components/first-project/first-project'
+import { VerifyEmail } from '../components/verify-email/verify-email'
 
 import { PIcon } from '@primeicons/angular/p-icon'
 import { SessionStore } from '../../core/stores/session.store'
-import { OnboardingStep } from '../../shared/interfaces/onboarding.interface'
+import { OnboardingStep } from '../interfaces/onboarding.interface'
 import { ONBOARDING_STEP } from '../../shared/enums/onboarding.enum'
-import { Onboarded } from "../onboarded/onboarded";
+import { Onboarded } from "../components/onboarded/onboarded";
 
 @Component({
   selector: 'app-onboarding',

@@ -1,4 +1,4 @@
-import { ValidationRule } from '../../interfaces/validation.interface'
+import { ValidationRule } from "../interfaces/validation.interface"
 
 const emailRules = [
   {

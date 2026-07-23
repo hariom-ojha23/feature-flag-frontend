@@ -7,7 +7,7 @@ import { PIcon } from '@primeicons/angular/p-icon'
 import { ButtonModule } from 'primeng/button'
 import { InputOtpModule } from 'primeng/inputotp'
 import { FormsModule } from '@angular/forms'
-import { SessionStore } from '../../core/stores/session.store'
+import { SessionStore } from '../../../core/stores/session.store'
 
 @Component({
   selector: 'app-verify-email',

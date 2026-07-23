@@ -1,5 +1,5 @@
 import { User } from '@primeicons/angular/user'
-import { ProjectStatus } from '../enums/project.enum'
+import { ProjectStatus } from '../../../shared/enums/project.enum'
 
 export interface ProjectPayload {
   name: string

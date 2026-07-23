@@ -1,17 +1,17 @@
 import { computed, inject } from '@angular/core'
-import { SessionState } from '../../shared/interfaces/session-state.interface'
+import { SessionState } from './interfaces/session-state.interface'
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals'
 import { rxMethod } from '@ngrx/signals/rxjs-interop'
 import { AuthService } from '../../auth/services/auth.service'
 import { SessionService } from '../../auth/services/session.service'
 import { catchError, EMPTY, pipe, switchMap, tap } from 'rxjs'
-import { LoginPayload, RegisterPayload } from '../../shared/interfaces/auth.interface'
+import { LoginPayload, RegisterPayload } from '../../auth/interfaces/auth.interface'
 import { Router } from '@angular/router'
 import { ToastMessageService } from '../../shared/services/toast.service'
 import { Error } from '../../shared/interfaces/error.interface'
 import { TokenService } from '../../auth/services/token.service'
 import { OnboardingService } from '../../auth/services/onboarding.service'
-import { Project, ProjectPayload } from '../../shared/interfaces/project.interface'
+import { Project, ProjectPayload } from '../../feature/project/interfaces/project.interface'
 
 const initialState: SessionState = {
   user: null,

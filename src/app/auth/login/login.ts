@@ -14,13 +14,11 @@ import { ButtonModule } from 'primeng/button'
 import { Envelope } from '@primeicons/angular/envelope'
 import { Lock } from '@primeicons/angular/lock'
 import { RouterModule } from '@angular/router'
-import { loginValidationRules } from '../../shared/constants/validation-rules/auth'
-import { AuthService } from '../services/auth.service'
 import { ToastMessageService } from '../../shared/services/toast.service'
-import { LoginPayload } from '../../shared/interfaces/auth.interface'
-import { Error } from '../../shared/interfaces/error.interface'
+import { LoginPayload } from '../interfaces/auth.interface'
 import { SessionStore } from '../../core/stores/session.store'
-import { LogoWithName } from "../../shared/components/logo-with-name/logo-with-name";
+import { LogoWithName } from '../../shared/components/logo-with-name/logo-with-name'
+import { loginValidationRules } from '../../shared/validations/auth.rule'
 
 @Component({
   selector: 'app-login',
@@ -36,7 +34,7 @@ import { LogoWithName } from "../../shared/components/logo-with-name/logo-with-n
     Envelope,
     Lock,
     LogoWithName
-],
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })

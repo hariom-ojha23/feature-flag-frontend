@@ -8,11 +8,11 @@ import { TextareaModule } from 'primeng/textarea'
 import { BadgeModule } from 'primeng/badge'
 import { PIcon } from '@primeicons/angular/p-icon'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { ProjectStatus } from '../../shared/enums/project.enum'
+import { ProjectStatus } from '../../../shared/enums/project.enum'
 import { debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs'
-import { SessionStore } from '../../core/stores/session.store'
-import { ProjectPayload } from '../../shared/interfaces/project.interface'
-import { ProjectService } from '../../feature/project/services/project.service'
+import { SessionStore } from '../../../core/stores/session.store'
+import { ProjectPayload } from '../../../feature/project/interfaces/project.interface'
+import { ProjectService } from '../../../feature/project/services/project.service'
 
 @Component({
   selector: 'app-first-project',

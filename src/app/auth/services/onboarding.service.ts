@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core'
 import { ApiService } from '../../shared/services/api.service'
-import { ResendEmailResponse, VerifyEmailResponse } from '../../shared/interfaces/auth.interface'
-import { ProjectPayload } from '../../shared/interfaces/project.interface'
+import { ResendEmailResponse, VerifyEmailResponse } from '../interfaces/auth.interface'
+import { ProjectPayload } from '../../feature/project/interfaces/project.interface'
 import { ProjectService } from '../../feature/project/services/project.service'
 
 @Injectable({ providedIn: 'root' })

@@ -3,7 +3,7 @@ import {
   LoginPayload,
   LoginResponse,
   RegisterPayload
-} from '../../shared/interfaces/auth.interface'
+} from '../interfaces/auth.interface'
 import { ApiService } from '../../shared/services/api.service'
 import { tap } from 'rxjs'
 import { TokenService } from './token.service'

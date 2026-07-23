@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core'
 import { ApiService } from '../../shared/services/api.service'
-import { SessionResponse } from '../../shared/interfaces/session-state.interface'
+import { SessionResponse } from '../../core/stores/interfaces/session-state.interface'
 
 @Injectable({ providedIn: 'root' })
 export class SessionService {

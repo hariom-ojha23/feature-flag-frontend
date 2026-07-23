@@ -1,6 +1,6 @@
-import { TenantStatus } from '../enums/tenant.enum'
-import { UserRole, UserStatus } from '../enums/user.enum'
-import { Project } from './project.interface'
+import { TenantStatus } from '../../../shared/enums/tenant.enum'
+import { UserRole, UserStatus } from '../../../shared/enums/user.enum'
+import { Project } from '../../../feature/project/interfaces/project.interface'
 
 export interface SessionResponse {
   user: User

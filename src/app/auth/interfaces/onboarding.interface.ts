@@ -1,4 +1,4 @@
-import { ONBOARDING_STEP } from '../enums/onboarding.enum'
+import { ONBOARDING_STEP } from '../../shared/enums/onboarding.enum'
 
 export type OnboardingComponent =
   ONBOARDING_STEP.VERIFY_EMAIL | ONBOARDING_STEP.FIRST_PROJECT | ONBOARDING_STEP.COMPLETE
