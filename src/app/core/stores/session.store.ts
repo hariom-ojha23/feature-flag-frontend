@@ -12,12 +12,14 @@ import { Error } from '../../shared/interfaces/error.interface'
 import { TokenService } from '../../auth/services/token.service'
 import { OnboardingService } from '../../auth/services/onboarding.service'
 import { Project, ProjectPayload } from '../../feature/project/interfaces/project.interface'
+import { ProjectStore } from './project.store'
+import { PlanType } from '../../shared/enums/plan-type.enum'
+import { PLAN_PROJECT_LIMITS } from '../../shared/config/plan-limits'
 
 const initialState: SessionState = {
   user: null,
   tenant: null,
   project: null,
-  availableProjects: [],
   loading: false,
   initialized: false,
   authError: null
@@ -26,7 +28,9 @@ const initialState: SessionState = {
 export const SessionStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
-  withComputed(({ user }) => ({ isAuthenticated: computed(() => !!user()) })),
+  withComputed((state) => ({
+    isAuthenticated: computed(() => !!state.user())
+  })),
 
   withMethods(
     (
@@ -35,6 +39,7 @@ export const SessionStore = signalStore(
       onboardingService = inject(OnboardingService),
       sessionService = inject(SessionService),
       tokenService = inject(TokenService),
+      projectStore = inject(ProjectStore),
       router = inject(Router),
       toast = inject(ToastMessageService)
     ) => ({
@@ -46,7 +51,8 @@ export const SessionStore = signalStore(
               // token is saved by auth service. Here we load session data
               switchMap(() => sessionService.getSession()),
               tap(({ user, tenant, project, availableProjects }) => {
-                patchState(store, { user, tenant, project, availableProjects, loading: false })
+                patchState(store, { user, tenant, project, loading: false })
+                projectStore.setProjects(availableProjects)
 
                 toast.showSuccess('Success', 'Login sucessfully')
 
@@ -82,7 +88,8 @@ export const SessionStore = signalStore(
               // token is saved by auth service. Here we load session data
               switchMap(() => sessionService.getSession()),
               tap(({ user, tenant, project, availableProjects }) => {
-                patchState(store, { user, tenant, project, availableProjects, loading: false })
+                patchState(store, { user, tenant, project, loading: false })
+                projectStore.setProjects(availableProjects)
 
                 toast.showSuccess('Success', 'Registered sucessfully')
 
@@ -107,12 +114,14 @@ export const SessionStore = signalStore(
             authService.logout().pipe(
               tap(() => {
                 patchState(store, initialState)
+                projectStore.setProjects([])
                 toast.showSuccess('Success', 'Logout sucessfully')
                 router.navigate(['/login'])
               }),
               catchError((error) => {
                 toast.showError(error.error?.error, error.error?.message)
                 patchState(store, initialState)
+                projectStore.setProjects([])
                 return EMPTY
               })
             )
@@ -165,11 +174,8 @@ export const SessionStore = signalStore(
           switchMap((payload) =>
             onboardingService.addFirstProject(payload).pipe(
               tap((project: Project) => {
-                patchState(store, {
-                  loading: false,
-                  project: project,
-                  availableProjects: [...store.availableProjects(), project]
-                })
+                patchState(store, { loading: false, project: project })
+                projectStore.setProjects([...projectStore.projects(), project])
 
                 toast.showSuccess('Success', 'Project created successfully')
               }),
@@ -202,21 +208,25 @@ export const SessionStore = signalStore(
                   user,
                   tenant,
                   project,
-                  availableProjects,
                   loading: false,
                   initialized: true
                 })
+                projectStore.setProjects(availableProjects)
               }),
               catchError((error: Error) => {
                 // token invalid/expired — clear it and reset
                 tokenService.removeToken()
                 patchState(store, { ...initialState, initialized: true })
+                projectStore.setProjects([])
                 return EMPTY
               })
             )
           })
         )
-      )
+      ),
+      setActiveProjet(project: Project) {
+        patchState(store, { project })
+      }
     })
   )
 )

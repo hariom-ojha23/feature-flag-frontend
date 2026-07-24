@@ -1,5 +1,5 @@
-import { User } from '@primeicons/angular/user'
 import { ProjectStatus } from '../../../shared/enums/project.enum'
+import { UserSummary } from '../../../core/stores/interfaces/session-state.interface'
 
 export interface ProjectPayload {
   name: string
@@ -14,9 +14,10 @@ export interface Project {
   key: string
   description: string | null
   status: ProjectStatus
-  archivedAt?: Date
-  createdBy: Partial<User>
-  updatedBy: Partial<User>
-  createdAt: Date
-  updatedAt: Date
+  archivedAt?: Date | string
+  suspendedAt?: Date | string
+  createdBy: UserSummary
+  updatedBy?: UserSummary
+  createdAt?: Date
+  updatedAt?: Date
 }

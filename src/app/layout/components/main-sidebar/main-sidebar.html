@@ -1,0 +1,91 @@
+<p-sidebar
+  id="main-sidebar"
+  class="h-full"
+  [collapsible]="isMobile() ? 'offcanvas' : 'none'"
+  [overlay]="isMobile()"
+  [open]="!isMobile()"
+>
+  <p-sidebar-spacer />
+  <p-sidebar-aside>
+    <p-sidebar-panel>
+      <p-sidebar-header>
+        <p-sidebar-menu>
+          <p-sidebar-menu-item>
+            <div class="px-1! py-1 flex justify-start w-max" variant="link" routerLink="/dashboard">
+              <app-logo-with-name height="2rem" width="120px"></app-logo-with-name>
+            </div>
+          </p-sidebar-menu-item>
+        </p-sidebar-menu>
+      </p-sidebar-header>
+
+      <p-sidebar-content>
+        @for (group of navGroups(); track group.label) {
+          <p-sidebar-group>
+            <p-sidebar-group-label class="text-primary uppercase tracking-wider">
+              {{ group.label }}
+            </p-sidebar-group-label>
+  
+            <p-sidebar-group-content>
+              <p-sidebar-menu>
+                @for (item of group.items; track item.label) {
+                  <p-sidebar-menu-item
+                    [collapsible]="!!item.subItems"
+                    [defaultOpen]="hasActiveSub(item)"
+                  >
+                    <button
+                      pSidebarMenuButton
+                      routerLinkActive="bg-primary/10! text-primary! font-medium!"
+                      #rla="routerLinkActive"
+                      [routerLink]="item.route"
+                      [isActive]="rla.isActive"
+                    >
+                      <svg [pIcon]="item.icon" class="text-primary"></svg>
+                      <span>{{ item.label }}</span>
+
+                      @if (item.subItems) {
+                        <svg pIcon="chevron-down" class="ml-auto"></svg>
+                      }
+                    </button>
+
+                    @if (item.badge) {
+                      <p-sidebar-menu-badge>{{ item.badge }}</p-sidebar-menu-badge>
+                    }
+
+                    @if (item.subItems) {
+                      <p-sidebar-menu-sub>
+                        @for (sub of item.subItems; track sub.label) {
+                          <p-sidebar-menu-sub-item>
+                            <button
+                              pSidebarMenuSubButton
+                              [routerLink]="sub.route"
+                              routerLinkActive
+                              #subRla="routerLinkActive"
+                              [isActive]="subRla.isActive"
+                            >
+                              <span>{{ sub.label }}</span>
+                            </button>
+                          </p-sidebar-menu-sub-item>
+                        }
+                      </p-sidebar-menu-sub>
+                    }
+                  </p-sidebar-menu-item>
+                }
+              </p-sidebar-menu>
+            </p-sidebar-group-content>
+          </p-sidebar-group>
+        }
+      </p-sidebar-content>
+      <p-sidebar-footer>
+        <p-sidebar-menu>
+          <p-sidebar-menu-item>
+            <button pSidebarMenuButton class="p-1!">
+              <p-avatar label="JD" shape="circle" class="size-6 shrink-0 text-xs" />
+              <span>John Doe</span>
+            </button>
+          </p-sidebar-menu-item>
+        </p-sidebar-menu>
+      </p-sidebar-footer>
+      <button pSidebarRail></button>
+    </p-sidebar-panel>
+  </p-sidebar-aside>
+</p-sidebar>

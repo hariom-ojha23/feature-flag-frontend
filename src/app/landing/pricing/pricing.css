@@ -139,6 +139,6 @@
   }
 
   .pricing__card--featured {
-    transform: translateY(-0.75rem);
+    transform: tranzincY(-0.75rem);
   }
 }

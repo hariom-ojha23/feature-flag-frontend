@@ -13,4 +13,8 @@ export class ProjectService {
   previewProjectKey(name: string) {
     return this.apiService.get<{ key: string }>(`projects/preview-key?name=${name}`)
   }
+
+  archiveProject(id: string) {
+    return this.apiService.get(`projects/archive?projectId=id`)
+  }
 }
