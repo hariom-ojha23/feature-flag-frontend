@@ -1,1 +1,38 @@
-<p>project-form works!</p>
+<p-dialog
+  header="Create Project"
+  [modal]="true"
+  [style]="{ width: '28rem' }"
+  [visible]="visible()"
+  (onHide)="onHide.emit()"
+>
+  <form [formGroup]="form" class="flex flex-col gap-3">
+    <div class="flex flex-col gap-1">
+      <app-label for="projectName" [required]="true">Project name</app-label>
+      <input pInputText id="projectName" formControlName="name" />
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <app-label for="projectKey" [required]="true">Project Key</app-label>
+      <input pInputText id="projectKey" formControlName="key" />
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <app-label for="environment">Environment</app-label>
+      <p-select></p-select>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <app-label for="description">Description</app-label>
+      <textarea rows="4" pInputText id="description" formControlName="description"></textarea>
+    </div>
+  </form>
+
+  <ng-template #footer>
+    <div class="flex justify-end gap-4">
+      <button pButton variant="outlined" severity="secondary" (click)="onHide.emit()">
+        Cancel
+      </button>
+      <button pButton>Create Project</button>
+    </div>
+  </ng-template>
+</p-dialog>

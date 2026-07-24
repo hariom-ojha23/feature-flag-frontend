@@ -1,0 +1,55 @@
+<p-card class="w-full h-full">
+  <ng-template #header>
+    <div class="p-4 pb-0 flex flex-col">
+      <div class="flex justify-between items-start gap-2">
+        <div class="flex items-center gap-4 min-w-0">
+          <p-avatar [label]="project().initials" size="large" class="bg-primary-600 shrink-0"></p-avatar>
+          <div class="space-y-1 min-w-0">
+            <h2 class="text-[16px] font-medium truncate" [title]="project().name">
+              {{ project().name }}
+            </h2>
+            <h4 class="text-xs text-muted truncate">{{ project().key }}</h4>
+          </div>
+        </div>
+
+        <div class="flex gap-2 shrink-0">
+          <p-badge severity="info" [value]="'3 envs'" />
+          <p-badge severity="success" value="Active" />
+        </div>
+      </div>
+
+      <p class="text-surface-200 text-[13px] mt-4 line-clamp-2 min-h-[2.6rem]">
+        {{ project().description }}
+      </p>
+
+      <p-divider class="mb-0" />
+    </div>
+  </ng-template>
+
+  <div class="flex items-center gap-3">
+    <div class="w-1/5">
+      <p>12</p>
+      <p class="text-xs text-muted">Flags</p>
+    </div>
+    <div class="w-[30%]">
+      <p>2</p>
+      <p class="text-xs text-muted">Environments</p>
+    </div>
+    <div class="w-1/4">
+      <p>3</p>
+      <p class="text-xs text-muted">Members</p>
+    </div>
+    <div class="w-1/4">
+      <p>2</p>
+      <p class="text-xs text-muted">API Keys</p>
+    </div>
+  </div>
+
+  <ng-template #footer>
+    <p-divider />
+    <div class="flex justify-between items-center p-0">
+      <p class="text-xs text-muted">Created: {{ project()?.createdAt | date: 'dd MMM, yyyy' }}</p>
+      <p-badge severity="success" value="Active" />
+    </div>
+  </ng-template>
+</p-card>

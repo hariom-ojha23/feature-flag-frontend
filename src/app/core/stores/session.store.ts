@@ -201,6 +201,8 @@ export const SessionStore = signalStore(
 
             patchState(store, { loading: true })
 
+            console.log(store.project())
+
             const activeProjectId = store.project()?.id
             return sessionService.getSession(activeProjectId).pipe(
               tap(({ user, tenant, project, availableProjects }) => {
@@ -226,7 +228,25 @@ export const SessionStore = signalStore(
       ),
       setActiveProjet(project: Project) {
         patchState(store, { project })
-      }
+      },
+      switchProject: rxMethod<string>(
+        pipe(
+          tap(() => patchState(store, { loading: true })),
+          switchMap((projectId) =>
+            sessionService.getSession(projectId).pipe(
+              tap(({ project }) => {
+                patchState(store, { project, loading: false })
+                toast.showSuccess('Success', `Switched to ${project.name}`)
+              }),
+              catchError((error: Error) => {
+                toast.showError(error.error?.error, error.error?.message)
+                patchState(store, { loading: false })
+                return EMPTY
+              })
+            )
+          )
+        )
+      )
     })
   )
 )

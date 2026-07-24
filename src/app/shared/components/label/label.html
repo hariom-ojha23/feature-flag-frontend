@@ -1,0 +1,7 @@
+<label pLabel [for]="for()" [ngClass]="class()">
+  <ng-content></ng-content>
+
+  @if (required()) {
+    <span class="text-danger">*</span>
+  }
+</label>

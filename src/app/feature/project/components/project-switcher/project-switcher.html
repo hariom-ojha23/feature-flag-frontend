@@ -1,0 +1,55 @@
+<!-- project-switcher.html -->
+<button
+  type="button"
+  class="w-full flex items-center gap-2.5 rounded-lg px-2 py-2 transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
+  (click)="popover.toggle($event)"
+>
+  <div
+    class="size-7 shrink-0 rounded-md flex items-center justify-center text-[11px] font-semibold text-white"
+    style="background: linear-gradient(145deg, var(--p-primary-400), var(--p-primary-600))"
+  >
+    {{ activeProject() ? initials(activeProject()!.name) : '—' }}
+  </div>
+
+  <div class="min-w-0 flex-1 text-left">
+    <p class="text-sm font-medium truncate">{{ activeProject()?.name ?? 'Select project' }}</p>
+    <p class="text-xs text-muted-color truncate">{{ activeProject()?.key }}</p>
+  </div>
+
+  <svg pIcon="chevrons-up-down" class="size-3.5 opacity-50 shrink-0"></svg>
+</button>
+
+<p-popover #popover [style]="{ width: '260px' }">
+  <div class="p-1">
+    <input
+      type="text"
+      placeholder="Search projects..."
+      class="w-full text-xs px-2 py-1.5 mb-1 rounded-md border border-surface-200 dark:border-surface-700 bg-transparent outline-none focus:border-primary-400"
+      [value]="search()"
+      (input)="search.set($any($event.target).value)"
+    />
+
+    <div class="max-h-64 overflow-y-auto">
+      @for (project of filteredProjects(); track project.id) {
+        <button
+          type="button"
+          class="w-full flex items-center gap-2.5 rounded-md px-2 py-1.5 text-left transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
+          (click)="select(project, $event)"
+        >
+          <div
+            class="size-6 shrink-0 rounded flex items-center justify-center text-[10px] font-semibold text-white"
+            style="background: linear-gradient(145deg, var(--p-primary-400), var(--p-primary-600))"
+          >
+            {{ initials(project.name) }}
+          </div>
+          <span class="text-sm truncate flex-1">{{ project.name }}</span>
+          @if (project.id === activeProject()?.id) {
+            <svg pIcon="check" class="size-4 text-primary-600 shrink-0"></svg>
+          }
+        </button>
+      } @empty {
+        <p class="text-xs text-muted-color px-2 py-3 text-center">No projects found</p>
+      }
+    </div>
+  </div>
+</p-popover>

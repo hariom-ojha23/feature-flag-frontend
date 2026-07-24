@@ -12,6 +12,7 @@ export interface Project {
   id: string
   name: string
   key: string
+  initials: string
   description: string | null
   status: ProjectStatus
   archivedAt?: Date | string

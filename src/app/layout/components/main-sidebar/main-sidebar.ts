@@ -9,6 +9,7 @@ import { LogoWithName } from '../../../shared/components/logo-with-name/logo-wit
 import { ButtonModule } from 'primeng/button'
 import { isActive, Router, RouterLink, RouterLinkActive } from '@angular/router'
 import { CommonModule } from '@angular/common'
+import { ProjectSwitcher } from '../../../feature/project/components/project-switcher/project-switcher'
 
 @Component({
   selector: 'app-main-sidebar',
@@ -23,6 +24,7 @@ import { CommonModule } from '@angular/common'
     LogoWithName,
     RouterLink,
     RouterLinkActive,
+    ProjectSwitcher
 ],
   templateUrl: './main-sidebar.html',
   styleUrl: './main-sidebar.css'

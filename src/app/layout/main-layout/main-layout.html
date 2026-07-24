@@ -1,11 +1,9 @@
-<div class="border border-surface-200 dark:border-surface-700 rounded-lg overflow-hidden">
-  <p-sidebar-layout class="h-screen relative!">
+<div class="border border-surface-200 dark:border-surface-700 rounded-lg h-screen overflow-hidden">
+  <p-sidebar-layout class="h-full relative!">
     <app-main-sidebar [navGroups]="navGroups()" [isMobile]="isMobile()"></app-main-sidebar>
 
-    <p-sidebar-main>
-      <header
-        class="flex h-12 items-center gap-2 border-b border-surface-200 dark:border-surface-700 px-4"
-      >
+    <p-sidebar-main class="bg-surface-950 flex flex-col h-full min-h-0">
+      <header class="flex h-12 items-center gap-2 px-4 shrink-0">
         @if (isMobile()) {
           <button
             class="mr-2"
@@ -18,10 +16,9 @@
             <svg pIcon="bars" size="18"></svg>
           </button>
         }
-
-        <p>{{ selectedMenu() }}</p>
       </header>
-      <div class="flex-1 p-4 flex flex-col gap-4">
+
+      <div class="flex-1 min-h-0 overflow-y-auto p-4 flex flex-col gap-4">
         <router-outlet />
       </div>
     </p-sidebar-main>

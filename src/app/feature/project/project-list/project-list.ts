@@ -2,9 +2,16 @@ import { Component, computed, inject, signal } from '@angular/core'
 import { ProjectStore } from '../../../core/stores/project.store'
 import { SessionStore } from '../../../core/stores/session.store'
 
+import { SkeletonModule } from 'primeng/skeleton'
+import { ProjectCard } from '../components/project-card/project-card'
+import { FormsModule } from '@angular/forms'
+import { ButtonModule } from 'primeng/button'
+import { InputTextModule } from 'primeng/inputtext'
+import { ProjectForm } from "../project-form/project-form";
+
 @Component({
   selector: 'app-project-list',
-  imports: [],
+  imports: [FormsModule, SkeletonModule, ProjectCard, ButtonModule, InputTextModule, ProjectForm],
   templateUrl: './project-list.html',
   styleUrl: './project-list.css'
 })
@@ -14,6 +21,8 @@ export class ProjectList {
 
   readonly search = signal<string>('')
   readonly loading = this.projectStore.loading()
+
+  readonly dialogOpen = signal(false)
 
   isAtLimit = computed(() => {
     const plan = this.sessionStore.tenant()?.plan

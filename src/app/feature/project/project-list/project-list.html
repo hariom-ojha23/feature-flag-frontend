@@ -1,1 +1,37 @@
-<p>project-list works!</p>
+<div class="p-4 mx-auto">
+  <div class="flex items-center justify-between gap-4 mb-6">
+    <div>
+      <h1 class="text-xl font-semibold">Projects</h1>
+      <p class="text-sm text-muted">Manage your feature flags projects</p>
+    </div>
+    <button pButton (click)="dialogOpen.set(true)">New project</button>
+  </div>
+
+  <input
+    pInputText
+    class="w-full max-w-sm mb-6"
+    placeholder="Search projects..."
+    [ngModel]="search()"
+    (ngModelChange)="search.set($event)"
+  />
+
+  @if (loading) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+        <p-skeleton height="120px" styleClass="rounded-xl!" />
+      }
+    </div>
+  } @else if (filteredProjects().length === 0) {
+    <div class="text-center py-16 text-muted-foreground">
+      <p>No projects found.</p>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+      @for (project of filteredProjects(); track project.id) {
+        <app-project-card [project]="project" (archive)="onArchive($event)" />
+      }
+    </div>
+  }
+</div>
+
+<app-project-form [visible]="dialogOpen()" (onHide)="dialogOpen.set(false)"></app-project-form>
